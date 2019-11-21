@@ -1,0 +1,76 @@
+html {
+    margin: 0;
+    padding: 0;
+    perspective: 500px;
+}
+body{
+    background-color: black !important;
+}
+.grid {
+    background: url(menu-grid.jpg) repeat 0 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    animation: slide 5s linear infinite;
+    transform: rotateX(50deg);
+}
+
+@keyframes slide {
+    from { background-position: 0 0; }
+    to { background-position: 0 -480px; }
+}
+
+.menu{
+    position:absolute;
+
+}
+
+.start-up-menu-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.start-up-menu-content {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    background: #1b1e21;
+}
+
+.start-up-menu-title {
+    padding-top: 70px;
+    padding-bottom: 10px;
+    color: 	#FFFFFF;
+}
+
+.neon-wrapper {
+    box-shadow:
+            0 0 0.1vw  0.4vw #fff7f7,
+            0 0 0.4vw  0.6vw #008a72,
+            0 0   4vw  0.4vw #26ffef,
+            inset 0 0 1.5vw  0.4vw #26ffef,
+            inset 0 0 0.4vw  0.2vw #008a72,
+            inset 0 0 0.5vw  0.2vw #fff7f7;
+    border-radius: 1.5rem;
+}
+.neon-wrapper button{
+    box-shadow:
+            0 0 0.1vw  0.4vw #1b1e21,
+            0 0 0.4vw  0.6vw #008a72,
+            0 0   4vw  0.4vw #26ffef,
+            inset 0 0 1.5vw  0.4vw #26ffef,
+            inset 0 0 0.4vw  0.2vw #008a72,
+            inset 0 0 0.5vw  0.2vw #1b1e21;
+    color:#FFFFFF;
+}
