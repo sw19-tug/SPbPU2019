@@ -7,7 +7,7 @@ body{
     background-color: black !important;
 }
 .grid {
-    background: url(menu-grid.jpg) repeat 0 0;
+    background: url(img/menu-grid.jpg) repeat 0 0;
     width: 100vw;
     height: 100vh;
     margin: 0 auto;
