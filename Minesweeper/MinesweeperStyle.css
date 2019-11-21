@@ -1,0 +1,28 @@
+.start-up-menu-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.start-up-menu-content {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    border: 2px solid 	#428bca;
+}
+
+.start-up-menu-title {
+    padding-top: 70px;
+    padding-bottom: 10px;
+    color: 	#428bca;
+}

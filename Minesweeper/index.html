@@ -3,21 +3,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>The Game Collection 2019</title>
+  <title>Minesweeper</title>
 
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/bootstrap.min.js"></script>
-  
+  <link rel="stylesheet" href="MinesweeperStyle.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <!--<script src="../js/bootstrap.min.js"></script>-->
+  <script src="MinesweeperJS.js"></script>
+
 </head>
 
 <body>
   <div id="games" class="row row justify-content-center">
-    <div class="game col-sm-4 col-centered"><a href="">Test-entry</a></div>
-    <div class="game col-sm-4 col-centered"><a href="">Test-entry</a></div>
-    <div class="game col-sm-4"><a href="">Test-entry</a></div>
-    <div class="game col-sm-4"><a href="">Test-entry</a></div>
-    <div class="game col-sm-4"><a href="">Test-entry</a></div>
+    <div class="start-up-menu-wrapper">
+      <div class="start-up-menu-content bg-light">
+        <h2 class="start-up-menu-title">Minesweeper</h2>
+        <button type="button" class="btn btn-primary btn-lg" onclick="goToGameField()">Play game</button>
+      </div>
+    </div>
   </div>
 </body>
 </html>
