@@ -1,3 +1,8 @@
+body
+{
+    background-image: url(../img/background1.jpg);   
+}
+
 .game-content{
     width: 900px;
     height: 900px;
@@ -37,13 +42,13 @@
     height: 58px;
     margin: 0px 10px 10px 0px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #614991;
     color: #ffffff;
     border-radius: 5px;
 }
 
 #letterBank div:hover{
-    background-color: #0069d9;
+    background-color: #3e8c4f;
 }
 
 #hangmanPicture{
@@ -51,6 +56,39 @@
     height: 300px;
     display: block;
     margin: 50px auto 0 auto;
-    border: 1px solid #0069d9;
+    border: 5px double #614991;
     border-radius: 10px;
+}
+
+.one {
+  background-image: url(../img/background1.jpg);  
+  padding: 20px;
+  text-align: center;
+}
+.one h1 {
+  font-family: 'Righteous', cursive;
+  position: relative;
+  color: #382361; 
+  display: inline-block;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  font-size: 3em;
+  padding: 11px 60px;
+  margin: 0; 
+  line-height: 1;
+}
+.one h1:before, .one h1:after {
+  content: ""; 
+  position: absolute;
+  top: 0;
+  width: 30px;
+  height: 100%;
+  border-left: 2px solid;
+  border-right: 2px solid;
+  background: repeating-linear-gradient(180deg, transparent, transparent 2px, #382361 2px, #382361 4px);
+}
+.one h1:before {left: 0;}
+.one h1:after {right: 0;}
+@media (max-width: 420px) {
+  .one h1 {font-size: 2em;}
 }
