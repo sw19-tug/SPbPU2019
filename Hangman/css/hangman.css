@@ -2,6 +2,11 @@ body {
     background:#EEEDF2;
 }
 
+@font-face {
+    font-family: 'Futura PT Book';
+    src: url("../font/FuturaPTBook.otf") format("opentype");;
+}
+
 .game-content {
     width: 1100px;
     height: 1000px;
@@ -30,7 +35,7 @@ body {
     width: 650px;
     height: 125px;
     margin: 10px auto;
-    font-size: 45px;
+    font-size: 35px;
     line-height: 60px;
     text-align: center;
 }
@@ -43,6 +48,7 @@ body {
         cursor: pointer;
         background-color: #614991;
         color: #ffffff;
+        font-family: 'Chonburi';
         border-radius: 5px;
     }
 

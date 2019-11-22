@@ -1,3 +1,3 @@
 function guessLetter(){
-	 TODO add function that process pressed letters
+	 //TODO add function that process pressed letters
 }
