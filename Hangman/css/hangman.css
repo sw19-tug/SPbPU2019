@@ -85,7 +85,7 @@ body
   height: 100%;
   border-left: 2px solid;
   border-right: 2px solid;
-  background: repeating-linear-gradient(180deg, transparent, transparent 2px, #382361 2px, #382361 4px);
+  background: repeating-linear-gradient(180deg, transparent, transparent 3px, #382361 3px, #382361 4px);
 }
 .one h1:before {left: 0;}
 .one h1:after {right: 0;}
