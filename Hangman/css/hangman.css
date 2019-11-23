@@ -25,12 +25,6 @@ body {
     overflow: auto;
 }
 
-.game-title {
-    padding-top: 100px;
-    padding-bottom: 20px;
-    color: #0069d9;
-}
-
 #letterBank {
     width: 650px;
     height: 125px;
@@ -113,4 +107,99 @@ button {
     width: 100px;
     height: 30px;
     border-radius:30px;
+}
+
+.hangman {
+    width: 300px;
+    margin-left: 40px;
+    margin-top: 65px;
+    position: relative;
+}
+
+.base {
+    height: 10px;
+    width:100px;
+    background: #362752;
+}
+            
+.pole {
+    height: 300px;
+    width: 10px;
+    background: #362752;
+    margin-left: 45px;
+}
+
+.shaft {
+    height: 5px;
+    width: 270px;
+    background: #362752;
+}  
+
+.rope {
+    height: 50px;
+    width: 3px;
+    background: #362752;
+    left: 240px;
+    top: 0;
+    position: absolute;
+}
+
+.man {
+    height: 200px;
+    width: 100px;
+    position: absolute;
+    top:50px;
+    left:190px;  
+}
+
+.face {
+    width:50px;
+    height:50px;
+    border-radius:25px;
+    margin-left:27px;
+    background: #362752;
+}
+
+.body {
+    width: 5px;
+    height: 80px;
+    background: #362752;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+}
+
+.part {
+    width: 5px;
+    height: 40px;
+    position: absolute;
+    background: #362752;
+}
+
+.lefthand, .leftfoot {
+    transform: rotate(-45deg);
+}
+
+.righthand, .rightfoot {
+    transform: rotate(45deg);
+}
+
+.lefthand {
+    top: 50px;
+    left: 65px;
+}
+
+.righthand {
+    top: 50px;
+    left: 35px;
+}
+
+.leftfoot {
+    top: 110px;
+    left: 65px;
+}
+
+.rightfoot {
+    top: 110px;
+    left: 35px;
 }
