@@ -1,3 +1,4 @@
 function guessLetter(){
-	 //TODO add function that process pressed letters
+	const targetButton = event.target
+	targetButton.setAttribute("disabled", "disabled")
 }
