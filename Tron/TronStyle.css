@@ -74,3 +74,25 @@ body{
             inset 0 0 0.5vw  0.2vw #1b1e21;
     color:#FFFFFF;
 }
+
+.field{
+    width:1024px;
+    height:720px;
+    margin:auto;
+    align-items: center;
+}
+
+.fieldWrapper{
+    height: 100%;
+    width: 100%;
+}
+
+.player{
+    position: relative;
+    width: 15px;
+    height: 15px;
+    top: 150px;
+    background-color: #FF5050;
+    left: 150px;
+    border-radius: 50%;
+}
