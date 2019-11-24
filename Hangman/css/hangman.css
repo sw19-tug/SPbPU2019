@@ -26,7 +26,7 @@ body {
 }
 
 #letterBank {
-    width: 650px;
+    width: 800px;
     height: 125px;
     margin: 10px auto;
     font-size: 35px;
@@ -100,7 +100,7 @@ table {
     height:550px;
 }
 td {
-    width:700px;
+    width:800px;
 }
 
 .but {
