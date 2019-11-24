@@ -1,28 +1,50 @@
-.main_menu{
-	width: 300px;
-	height: 500px;
-	background-color: red;
-	
+@font-face{
+        font-family: 'Furore';
+        src: url('../fonts/furore.otf')
+}
+@font-face{
+        font-family: 'Roboto';
+        src: url('../fonts/roboto.ttf')
+}
+body{
+        background-color: #232526;
+}
+#games{
+	width: 550px;
+	height: 600px;
+	background-color: #1c1d1f;	
 	position: absolute;
-	top:0;
-	bottom: 0;
+	top:30px;
 	left: 0;
-	right: 0;
-  	
-	margin: auto;
+	right: 0;  	
+	margin-left: auto;
+        margin-right: auto;
+}
+.header{
+        height: 5%;
+        line-height: 100%;
+        padding-top: 10px;
+        padding-left: 10px;
+        font-family: 'Furore';
+        font-size: 20px;
+        color: #90e815;        
+}
+.main_menu{
+  	height: 95%;
+        text-align: center;
 }
 .mmb{
-	height: 70px;
-	background-color: yellow;
-	
-	position: absolute;
-	top:0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-  	
-	margin: auto;
+	height: 10%;
+        width: 100px;
+	background-color: #232526;
+        border: 2px solid #6b6e70;
+	outline: none;
+        position: relative;
+        top: 40%;
+        font-family: 'Roboto';
+        font-size: 20px;
+        color: #90e815;
 }
-
-
-
+.mmb:hover{
+        border: 2px solid #90e815;
+}
