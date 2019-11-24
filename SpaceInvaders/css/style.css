@@ -7,17 +7,18 @@
         src: url('../fonts/roboto.ttf')
 }
 body{
-        background-color: #232526;
+        background-color: #1c1d1f;
 }
 #games{
-	width: 550px;
-	height: 600px;
-	background-color: #1c1d1f;	
-	position: absolute;
-	top:30px;
-	left: 0;
-	right: 0;  	
-	margin-left: auto;
+	    width: 550px;
+	    height: 600px;
+	    background-color: #1c1d1f;	
+        border: 1px solid #90e815;
+	    position: absolute;
+	    top:30px;
+	    left: 0;
+	    right: 0;  	
+	    margin-left: auto;
         margin-right: auto;
 }
 .header{
@@ -30,15 +31,15 @@ body{
         color: #90e815;        
 }
 .main_menu{
-  	height: 95%;
+  	    height: 95%;
         text-align: center;
 }
 .mmb{
-	height: 10%;
-        width: 100px;
-	background-color: #232526;
+	    height: 10%;
+        width: 130px;
+	    background-color: #232526;
         border: 2px solid #6b6e70;
-	outline: none;
+	    outline: none;
         position: relative;
         top: 40%;
         font-family: 'Roboto';
