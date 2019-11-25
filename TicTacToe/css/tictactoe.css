@@ -1,0 +1,52 @@
+body{
+    background-color: #FFFEFE;
+}
+
+.area-wrapper{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#area {
+    width: 300px;
+    height: 300px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px double #F9794A;
+    box-shadow: 0px 0px 30px rgba(249, 121, 74, 0.2);
+}
+
+.zero {
+    width: 100px;
+    height: 100px;
+    border: 1px double #AD9B9A;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+    color: rgb(120, 107, 107, 0.3);
+}
+.cross {
+    width: 100px;
+    height: 100px;
+    border: 1px double #AD9B9A;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #786B6B;
+    font-size: 50px;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Chonburi';
+    color: #786B6B;
+    font-size: 3em;
+}
