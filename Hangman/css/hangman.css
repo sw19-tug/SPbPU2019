@@ -26,7 +26,7 @@ body {
 }
 
 #letterBank {
-    width: 650px;
+    width: 800px;
     height: 125px;
     margin: 10px auto;
     font-size: 35px;
@@ -34,10 +34,10 @@ body {
     text-align: center;
 }
 
-    #letterBank div {
+    #letterBank button {
         float: left;
-        width: 40px;
-        height: 52px;
+        width: 50px;
+        height: 55px;
         margin: 0px 10px 10px 0px;
         cursor: pointer;
         background-color: #614991;
@@ -46,8 +46,16 @@ body {
         border-radius: 5px;
     }
 
-        #letterBank div:hover {
+        #letterBank button:hover {
             background-color: #3e8c4f;
+        }
+
+        #letterBank button:active {
+            background-color: #0d581d;
+        }
+
+        #letterBank button:disabled {
+            background-color: #a199b3;
         }
 
 #hangmanPicture {
@@ -92,7 +100,7 @@ table {
     height:550px;
 }
 td {
-    width:700px;
+    width:800px;
 }
 
 .but {
