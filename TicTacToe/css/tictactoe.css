@@ -51,9 +51,17 @@ h1 {
     font-size: 3em;
 }
 
-#model {
-    position: fixed;
-    display: none;
+/* The Modal*/
+.modal {
+    position: fixed; 
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5); 
+    z-index: 1050;
+    -webkit-transition: opacity 200ms ease-in;
+    -moz-transition: opacity 200ms ease-in;
 }
 
 /*Modal Header*/
@@ -63,6 +71,7 @@ h1 {
     color: #786B6B;
     background-color: #FFFEFE;
 }
+
 /* Modal Content */
 .modal-content {
     background-color: #fefefe;
@@ -75,7 +84,7 @@ h1 {
     animation-duration: 0.3s;
     top: 25%;
     left: 0;
-    right: 0;       
+    right: 0;
     position: absolute;
 }
 
@@ -93,15 +102,16 @@ h1 {
 }
 
 button {
-    align-content:center;
+    align-content: center;
     background: #F9794A;
     color: #ffffff;
     width: 100px;
     height: 30px;
     border-radius: 30px;
 }
+
 .but {
-    text-align:center;
+    text-align: center;
 }
 
 p {
