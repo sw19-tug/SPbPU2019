@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/tictactoe.js"></script>
 </head>
 <body>
     <h1>Tic Tac Toe</h1>
@@ -18,12 +19,11 @@
             </div>
             <div class="but">
                 <p> You can choose playing mode:alone or multiplayer.</p>
-                <button onclick="document.getElementById('modal').style.display='none';">1 Player</button>
-                <button onclick="document.getElementById('modal').style.display='none';">2 Players</button>
+                <button onclick="selectMode(0);">1 Player</button>
+                <button onclick="selectMode(1);">2 Players</button>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="js/tictactoe.js"></script>
     <div class="area-wrapper">
         <div id="area">
             <div class="cross">x</div>
