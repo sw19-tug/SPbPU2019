@@ -51,7 +51,37 @@
                     </tr>
                     <tr>
                         <td height="150px">
-                            <div id="wordWrapper">_ _ _ _ _ _ _ _</div> <!-- Section for a placeholder of guessed word -->
+                            <div id="wordWrapper"></div> <!-- Section for a placeholder of guessed word -->
+                            <script>
+                                function placehold() {
+    var words = [
+        "javascript",
+        "monkey",
+        "amazing",
+        "pancake",
+        "galvainze",
+        "cohort",
+        "concatenate",
+        "iteration",
+        "index",
+        "code",
+        "angular",
+        "react",
+        "python"
+    ];
+    // Pick a random word
+    var word = words[Math.floor(Math.random() * words.length)];
+
+    var wrapper = document.getElementById('wordWrapper');
+    var str = ' ';
+    for (var i = 0; i < word.length; i++) {
+        str = str + "_ ";
+    }
+    wrapper.textContent = str;
+}
+
+placehold();
+                            </script>
                         </td>
                     </tr>
                     <tr>
