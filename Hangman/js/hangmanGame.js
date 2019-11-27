@@ -28,5 +28,5 @@ function placeholders() {
     }
     wrapper.textContent = str;
 }
-window.onload = placeholders();
 
+window.onload = function() { placeholders(); }
