@@ -1,6 +1,7 @@
 ﻿let fldWidth = 7;
 let fldHeight = 6;
 let cells = [];
+let unlocked = true;
 
 document.addEventListener("DOMContentLoaded", addCells);
 
@@ -25,8 +26,28 @@ function addCells() {
 }
 
 function addDisc() {
-
+    if (unlocked) {
+        unlocked = false;
+        animation(this.clmn);
+    }
 }
 
-
+function animation(clmn) {
+    let interval = 0;
+    let i = 0;
+    for (i; i < cells[clmn].length; i++) {
+        if (cells[clmn][i].style.backgroundColor === "white") {
+            setTimeout(div => { div.style.backgroundColor = "red"; }, interval, cells[clmn][i]);
+            interval += 75;
+            setTimeout(div => { div.style.backgroundColor = "white"; }, interval, cells[clmn][i]);
+        }
+        else {
+            break;
+        }
+    }
+    setTimeout(div => {
+        div.style.backgroundColor = "red";
+        unlocked = true;
+    }, interval, cells[clmn][i - 1]);
+}
 
