@@ -8,21 +8,34 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/tictactoe.js"></script>
 </head>
 <body>
     <h1>Tic Tac Toe</h1>
-  <div class="area-wrapper">
-      <div id="area">
-          <div class="cross">x</div>
-          <div class="zero">o</div>
-          <div class="zero">o</div>
-          <div class="cross">x</div>
-          <div class="cross">x</div>
-          <div class="zero">o</div>
-          <div class="zero">o</div>
-          <div class="cross">x</div>
-          <div class="zero">o</div>
-      </div>
-  </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Select mode</h2>
+            </div>
+            <div class="but">
+                <p> You can choose playing mode:alone or multiplayer.</p>
+                <button onclick="selectMode(0);">1 Player</button>
+                <button onclick="selectMode(1);">2 Players</button>
+            </div>
+        </div>
+    </div>
+    <div class="area-wrapper">
+        <div id="area">
+            <div class="cross">x</div>
+            <div class="zero">o</div>
+            <div class="zero">o</div>
+            <div class="cross">x</div>
+            <div class="cross">x</div>
+            <div class="zero">o</div>
+            <div class="zero">o</div>
+            <div class="cross">x</div>
+            <div class="zero">o</div>
+        </div>
+    </div>
 </body>
 </html>
