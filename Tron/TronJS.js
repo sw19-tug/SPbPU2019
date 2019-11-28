@@ -1,30 +1,49 @@
-let movement;
-player1=document.getElementById("player1");
+const canvas = document.getElementById('tron');
+const context = canvas.getContext('2d');
+const unit = 15;
 
-function init(){
-    player1.style.top='150px';
-    player1.style.left='150px';
+class Player{
+    constructor(x,y,color){
+        this.color = color || '#fff';
+        this.x = x;
+        this.y = y;
+        this.startX = x;
+        this.startY = y;
+        this.dead = false;
+        this.constructor.counter = (this.constructor.counter || 0) + 1;
+        this._id = this.constructor.counter;
+
+        Player.allInstances.push(this);
+}
 }
 
-window.onload=init;
+Player.allInstances = [];
 
-function setKey(key) {
+let p1 = new Player(unit * 6, unit * 6, '#FF5050');
+//For next US
+//let p2 = new Player(unit * 43, unit * 43, '#75A4FF');
+
+function setKey(key, player, up, right, down, left)  {
     switch (key) {
-        case 'w':
-        case 'ц':
-            player1.style.top=parseInt(player1.style.top)-5+'px';
+        case up:
+            if (player.direction !== 'DOWN') {
+                player.key = 'UP';
+            }
             break;
-        case 'd':
-        case 'в':
-            player1.style.left=parseInt(player1.style.left)+5+'px';
+        case right:
+            if (player.direction !== 'LEFT') {
+                player.key = 'RIGHT';
+            }
             break;
-        case 's':
-        case 'ы':
-            player1.style.top=parseInt(player1.style.top)+5+'px';
+        case down:
+            if (player.direction !== 'UP') {
+                player.key = 'DOWN';
+            }
             break;
-        case 'a':
-        case 'ф':
-            player1.style.left=parseInt(player1.style.left)-5+'px';
+        case left:
+            if (player.direction !== 'RIGHT') {
+                player.key = 'LEFT';
+            }
             break;
         default:
             break;
@@ -32,26 +51,125 @@ function setKey(key) {
 };
 
 function handleKeyPress(event) {
-    let key = event.key;
+    let key = event.key.toLowerCase();
+    //Log
+    console.log(key)
     switch (key) {
-        case 'w':
-        case 'ц':
-        case 'd':
-        case 'ф':
-        case 's':
-        case 'ы':
-        case 'a':
-        case 'в':
-            if(movement!==undefined)
-                clearInterval(movement);
-            movement=setInterval(()=>setKey(key),100);
-            break;
+        case 'enter':
+        case 'escape':
         case ' ':
-            if(movement!==undefined)
-                clearInterval(movement);
+            resetGame();
             break;
-        default:
-            break;
-    };
+    }
+    setKey(key, p1, 'w', 'd', 's','a' );
 };
 document.addEventListener('keydown', handleKeyPress);
+
+function getPlayableCells(canvas, unit) {
+    let playableCells = new Set();
+    for (let i = 0; i < canvas.width / unit; i++) {
+        for (let j = 0; j < canvas.height / unit; j++) {
+            playableCells.add(`${i * unit}x${j * unit}y`);
+        };
+    };
+    return playableCells;
+};
+let playableCells = getPlayableCells(canvas, unit);
+
+function drawBackground() {
+    context.strokeStyle = '#071126';
+    for (let i = 0; i <= canvas.width / unit + 2; i += 2) {
+        for (let j = 0; j <= canvas.height / unit + 2; j += 2) {
+            context.strokeRect(0, 0, unit * i, unit * j);
+        };
+    };
+    context.strokeStyle = '#000000';
+    context.lineWidth = 0;
+    for (let i = 1; i <= canvas.width / unit; i += 2) {
+        for (let j = 1; j <= canvas.height / unit; j += 2) {
+            context.strokeRect(0, 0, unit * i, unit * j);
+        };
+    };
+    context.lineWidth = 0;
+};
+drawBackground();
+
+function drawStartingPositions(players) {
+    players.forEach(p => {
+        context.fillStyle = p.color;
+        context.fillRect(p.x, p.y, unit, unit);
+        context.strokeStyle = 'black';
+        context.strokeRect(p.x, p.y, unit, unit);
+    });
+};
+drawStartingPositions(Player.allInstances);
+
+let outcome, winnerColor, playerCount = Player.allInstances.length;
+
+function draw() {
+    if (Player.allInstances.filter(p => !p.key).length === 0) {
+        Player.allInstances.forEach(p => {
+            if (p.key) {
+
+                p.direction = p.key;
+
+                context.fillStyle = p.color;
+                context.fillRect(p.x, p.y, unit, unit);
+                context.strokeStyle = 'black';
+                context.strokeRect(p.x, p.y, unit, unit);
+
+                if (!playableCells.has(`${p.x}x${p.y}y`) && p.dead === false) {
+                    p.dead = true;
+                    p.direction = '';
+                    playerCount -= 1;
+                }
+
+                playableCells.delete(`${p.x}x${p.y}y`);
+
+                if (!p.dead) {
+                    if (p.direction === "LEFT") p.x -= unit;
+                    if (p.direction === "UP") p.y -= unit;
+                    if (p.direction === "RIGHT") p.x += unit;
+                    if (p.direction === "DOWN") p.y += unit;
+                }
+                else resetGame() ;
+            };
+
+        });
+
+    }
+}
+
+let game = setInterval(draw, 100);
+
+function resetGame() {
+    // Remove the results node
+    const result = document.getElementById('result');
+    if (result) result.remove();
+
+    // Remove background then re-draw it
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawBackground();
+
+    // Reset playableCells
+    playableCells = getPlayableCells(canvas, unit);
+
+    // Reset players
+    Player.allInstances.forEach(p => {
+        p.x = p.startX;
+        p.y = p.startY;
+        p.dead = false;
+        p.direction = '';
+        p.key = '';
+    });
+    playerCount = Player.allInstances.length;
+    drawStartingPositions(Player.allInstances);
+
+    // Reset outcome
+    outcome = '';
+    winnerColor = '';
+
+    // Ensure draw() has stopped, then re-trigger it
+    clearInterval(game);
+    game = setInterval(draw, 100);
+};
