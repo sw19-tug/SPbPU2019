@@ -20,7 +20,7 @@ body{
     box-shadow: 0px 0px 30px rgba(249, 121, 74, 0.2);
 }
 
-.zero {
+.cell {
     width: 100px;
     height: 100px;
     border: 1px double #AD9B9A;
@@ -28,20 +28,24 @@ body{
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
-    font-size: 45px;
+}
+
+.zero {
+    font-size: 40px;
     color: rgb(120, 107, 107, 0.3);
 }
 .cross {
-    width: 100px;
-    height: 100px;
-    border: 1px double #AD9B9A;
-    display: flex;
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
+    font-size: 40px;
     color: #786B6B;
-    font-size: 50px;
+}
+
+#turn {
+    height: 34px;
+    text-align: center;
+    font-family: 'Chonburi';
+    color: #786B6B;
+    font-size: 30px;
+    padding-bottom: 10px;
 }
 
 h1 {
