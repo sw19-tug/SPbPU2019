@@ -2,6 +2,11 @@
 let fldHeight = 6;
 let cells = [];
 let unlocked = true;
+let flagPlayer = true; // true -> player1; flase -> player2
+
+let player1, player2;
+
+[player1, player2] = ['red', 'gold'];
 
 document.addEventListener("DOMContentLoaded", addCells);
 
@@ -37,17 +42,20 @@ function animation(clmn) {
     let i = 0;
     for (i; i < cells[clmn].length; i++) {
         if (cells[clmn][i].style.backgroundColor === "white") {
-            setTimeout(div => { div.style.backgroundColor = "red"; }, interval, cells[clmn][i]);
+            setTimeout(div => div.style.backgroundColor = player(), interval, cells[clmn][i]);
             interval += 75;
-            setTimeout(div => { div.style.backgroundColor = "white"; }, interval, cells[clmn][i]);
+            setTimeout(div => div.style.backgroundColor = "white", interval, cells[clmn][i]);
         }
-        else {
-            break;
-        }
+        else break;
     }
     setTimeout(div => {
-        div.style.backgroundColor = "red";
+        div.style.backgroundColor = player();
+        div.player1 = flagPlayer;
+        flagPlayer = !flagPlayer;
         unlocked = true;
     }, interval, cells[clmn][i - 1]);
 }
 
+function player() {
+    return flagPlayer ? player1 : player2;
+}
