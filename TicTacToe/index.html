@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <title>TicTacToe</title>
     <link rel="stylesheet" href="css/tictactoe.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+ <!--    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css"> -->
+    <link href="https://fonts.googleapis.com/css?family=Chonburi&display=swap" rel="stylesheet">
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/tictactoe.js"></script>
 </head>
@@ -18,23 +19,24 @@
                 <h2 class="modal-title">Select mode</h2>
             </div>
             <div class="but">
-                <p> You can choose playing mode:alone or multiplayer.</p>
+                <p> You can choose playing mode: alone or multiplayer.</p>
                 <button onclick="selectMode(0);">1 Player</button>
                 <button onclick="selectMode(1);">2 Players</button>
             </div>
         </div>
     </div>
+    <div id="turn"></div>
     <div class="area-wrapper">
         <div id="area">
-            <div class="cross">x</div>
-            <div class="zero">o</div>
-            <div class="zero">o</div>
-            <div class="cross">x</div>
-            <div class="cross">x</div>
-            <div class="zero">o</div>
-            <div class="zero">o</div>
-            <div class="cross">x</div>
-            <div class="zero">o</div>
+            <div id="0" class="cell"></div>
+            <div id="1" class="cell"></div>
+            <div id="2" class="cell"></div>
+            <div id="3" class="cell"></div>
+            <div id="4" class="cell"></div>
+            <div id="5" class="cell"></div>
+            <div id="6" class="cell"></div>
+            <div id="7" class="cell"></div>
+            <div id="8" class="cell"></div>
         </div>
     </div>
 </body>
