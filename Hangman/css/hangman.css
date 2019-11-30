@@ -93,6 +93,7 @@ body {
     margin: 0 auto;
     color: #362752;
     font-size:50px;
+    white-space: pre;
 }
 
 table {
