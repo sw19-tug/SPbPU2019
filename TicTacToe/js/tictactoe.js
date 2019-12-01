@@ -61,6 +61,7 @@ function currentStep() {
         for (var i = 0; i < cells.length; i++) {
             cells[i].removeEventListener("click", currentStep);
         }
+        //show resulte here
         console.log("победил"+ currentPlayer)
       }
     }
