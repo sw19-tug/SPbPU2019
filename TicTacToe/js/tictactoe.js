@@ -1,6 +1,7 @@
 var player1 = "X",
     player2 = "O",
     currentPlayer,
+    stepCount = 0,
     cells,
     winCombinations = [
         [1, 2, 3],
@@ -54,15 +55,22 @@ function currentStep() {
         dataO.push(num)
 		document.getElementById('turn').innerHTML = "Turn: Player " + player1;
     }
+    stepCount++
     if (
         (dataO.length > 2 || dataX.length > 2) &&
         (checkWin(dataO, num) || checkWin(dataX, num))
       ) {
         for (var i = 0; i < cells.length; i++) {
             cells[i].removeEventListener("click", currentStep);
-        }
+        }       
         //show resulte here
-        console.log("победил"+ currentPlayer)
+        console.log("Win"+ currentPlayer);
+        return
+      }
+      if (stepCount == 9)
+      {
+          console.log("Draw");
+          return
       }
     }
   function checkWin(arr, number) {
