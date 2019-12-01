@@ -1,10 +1,11 @@
 body {
-    background:#EEEDF2;
+    background: #EEEDF2;
 }
 
 @font-face {
     font-family: 'Futura PT Book';
-    src: url("../font/FuturaPTBook.otf") format("opentype");;
+    src: url("../font/FuturaPTBook.otf") format("opentype");
+    ;
 }
 
 .game-content {
@@ -70,8 +71,9 @@ body {
 }
 
 .one {
-  padding: 5px;
+    padding: 5px;
 }
+
     .one h1 {
         font-family: 'Chonburi';
         color: #362752;
@@ -81,10 +83,11 @@ body {
         margin-top: 60px;
         line-height: 1;
     }
+
     .one p {
         font-family: 'Futura PT Book';
         color: #362752;
-        text-align:left;
+        text-align: left;
         font-size: 25px;
     }
 
@@ -92,16 +95,17 @@ body {
     text-align: center;
     margin: 0 auto;
     color: #362752;
-    font-size:50px;
+    font-size: 50px;
     white-space: pre;
 }
 
 table {
-    width:100%;
-    height:550px;
+    width: 100%;
+    height: 550px;
 }
+
 td {
-    width:800px;
+    width: 800px;
 }
 
 .but {
@@ -115,7 +119,7 @@ input {
     color: #ffffff;
     width: 100px;
     height: 30px;
-    border-radius:30px;
+    border-radius: 30px;
 }
 
 .hangman {
@@ -127,10 +131,10 @@ input {
 
 .base {
     height: 10px;
-    width:100px;
+    width: 100px;
     background: #362752;
 }
-            
+
 .pole {
     height: 300px;
     width: 10px;
@@ -142,7 +146,7 @@ input {
     height: 5px;
     width: 270px;
     background: #362752;
-}  
+}
 
 .rope {
     height: 50px;
@@ -157,15 +161,15 @@ input {
     height: 200px;
     width: 100px;
     position: absolute;
-    top:50px;
-    left:190px;  
+    top: 50px;
+    left: 190px;
 }
 
 .face {
-    width:50px;
-    height:50px;
-    border-radius:25px;
-    margin-left:27px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    margin-left: 27px;
     background: #362752;
 }
 
