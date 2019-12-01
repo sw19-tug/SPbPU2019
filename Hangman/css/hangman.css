@@ -212,3 +212,7 @@ input {
     top: 110px;
     left: 35px;
 }
+
+.invisible{
+    display: none;
+}

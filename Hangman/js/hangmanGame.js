@@ -1,19 +1,37 @@
-var flgBig = false;
-function guessLetter(){
-	const targetButton = event.target;;
-	targetButton.setAttribute("disabled", "disabled")
-}
-
-function placeholders() {
-    const words=["light","respect","profit","expansion","heat","touch","move","rate","sound",
+var flgBig = false;    
+const words=["light","respect","profit","expansion","heat","touch","move","rate","sound",
         "change","front","talk","relation","learning","print","servant","feeling","insurance",
         "punishment","iron","vessel","disease","event","price","judge","summer","science",
         "measure","organization","side","stage","account","javascript","monkey","amazing",
         "pancake","galvainze","cohort","concatenate","iteration","index","code","angular",
         "react","python",'good luck',"take care","welcome guest","written word","heavy competition",
         "the beginning of time","broken heart","seven virtues"]
-    // Pick a random word
-    var word = words[Math.floor(Math.random() * words.length)];
+var word = words[Math.floor(Math.random() * words.length)];
+function guessLetter(){
+	const targetButton = event.target;;
+    targetButton.setAttribute("disabled", "disabled")
+    let wordToUpper= word.toUpperCase();
+    if (wordToUpper.indexOf(targetButton.value)===-1){
+        drowHangman();
+    }
+}
+
+function drowHangman(){
+    if(hangmanParts.length){
+    if( hangmanParts[0].className!='man')
+    {
+    hangmanParts[0].classList.remove("invisible");
+    hangmanParts.shift();
+    }
+    else{
+        man=document.querySelector(".man")
+        hangmanParts=Array.from(man.children)
+        console.log(hangmanParts)
+    }
+}
+}
+
+function placeholders() {
     var wrapper = document.getElementById('wordWrapper');
     var str = '';
     for (var i = 0; i < word.length; i++) {
@@ -42,4 +60,9 @@ function placeholders() {
         flgBig = true;
     }
 }
-window.onload = function() { placeholders(); }
+window.onload = function() { 
+    placeholders();
+    const hangmanPic=document.querySelector(".hangman");
+    const hangmanPartsCollection=hangmanPic.children; 
+    hangmanParts=this.Array.from(hangmanPartsCollection);
+}
