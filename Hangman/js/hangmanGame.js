@@ -15,6 +15,10 @@ function guessLetter(){
     if (wordToUpper.indexOf(targetButton.value)===-1){
         drowHangman();
     }
+    document.getElementById('letterBank').onclick = function (e) {
+        letter = e.target.getAttribute('id');
+        addLetters(letter);
+    }
 }
 
 function drowHangman(){
