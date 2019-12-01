@@ -13,7 +13,6 @@ function placeholders() {
         "the beginning of time","broken heart","seven virtues"]
     // Pick a random word
     var word = words[Math.floor(Math.random() * words.length)];
-    console.log(word)
     var wrapper = document.getElementById('wordWrapper');
     var str = '';
     for (var i = 0; i < word.length; i++) {
@@ -23,7 +22,6 @@ function placeholders() {
         }
         else {str = str + "  ";}
     }
-    console.log(str)
     wrapper.textContent = str;
 }
 
