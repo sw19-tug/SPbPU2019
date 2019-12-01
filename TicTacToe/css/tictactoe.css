@@ -36,6 +36,10 @@ body{
     font-family: 'Futura PT Book';
 }
 
+.winCell {
+    background-color: #FF8080;
+}
+
 .zero {
     font-size: 40px;
     color: rgb(120, 107, 107, 0.3);
