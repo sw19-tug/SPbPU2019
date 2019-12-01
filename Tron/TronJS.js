@@ -1,9 +1,15 @@
 const canvas = document.getElementById('tron');
 const context = canvas.getContext('2d');
 const unit = 15;
+const Direction = {
+    UP: 1,
+    DOWN: 2,
+    LEFT: 3,
+    RIGHT: 4,
+};
 
-class Player{
-    constructor(x,y,color){
+class Player {
+    constructor(x, y, color) {
         this.color = color || '#fff';
         this.x = x;
         this.y = y;
@@ -14,7 +20,7 @@ class Player{
         this._id = this.constructor.counter;
 
         Player.allInstances.push(this);
-}
+    }
 }
 
 Player.allInstances = [];
@@ -23,37 +29,35 @@ let p1 = new Player(unit * 6, unit * 6, '#FF5050');
 //For next US
 //let p2 = new Player(unit * 43, unit * 43, '#75A4FF');
 
-function setKey(key, player, up, right, down, left)  {
+function setKey(key, player, up, right, down, left) {
     switch (key) {
         case up:
-            if (player.direction !== 'DOWN') {
-                player.key = 'UP';
+            if (player.direction !== Direction.DOWN) {
+                player.key = Direction.UP;
             }
             break;
         case right:
-            if (player.direction !== 'LEFT') {
-                player.key = 'RIGHT';
+            if (player.direction !== Direction.LEFT) {
+                player.key = Direction.RIGHT;
             }
             break;
         case down:
-            if (player.direction !== 'UP') {
-                player.key = 'DOWN';
+            if (player.direction !== Direction.UP) {
+                player.key = Direction.DOWN;
             }
             break;
         case left:
-            if (player.direction !== 'RIGHT') {
-                player.key = 'LEFT';
+            if (player.direction !== Direction.RIGHT) {
+                player.key = Direction.LEFT;
             }
             break;
         default:
             break;
-    };
-};
+    }
+}
 
 function handleKeyPress(event) {
     let key = event.key.toLowerCase();
-    //Log
-    console.log(key)
     switch (key) {
         case 'enter':
         case 'escape':
@@ -61,8 +65,8 @@ function handleKeyPress(event) {
             resetGame();
             break;
     }
-    setKey(key, p1, 'w', 'd', 's','a' );
-};
+    setKey(key, p1, 'w', 'd', 's', 'a');
+}
 document.addEventListener('keydown', handleKeyPress);
 
 function getPlayableCells(canvas, unit) {
@@ -70,10 +74,10 @@ function getPlayableCells(canvas, unit) {
     for (let i = 0; i < canvas.width / unit; i++) {
         for (let j = 0; j < canvas.height / unit; j++) {
             playableCells.add(`${i * unit}x${j * unit}y`);
-        };
-    };
+        }
+    }
     return playableCells;
-};
+}
 let playableCells = getPlayableCells(canvas, unit);
 
 function drawBackground() {
@@ -81,17 +85,17 @@ function drawBackground() {
     for (let i = 0; i <= canvas.width / unit + 2; i += 2) {
         for (let j = 0; j <= canvas.height / unit + 2; j += 2) {
             context.strokeRect(0, 0, unit * i, unit * j);
-        };
-    };
+        }
+    }
     context.strokeStyle = '#000000';
     context.lineWidth = 0;
     for (let i = 1; i <= canvas.width / unit; i += 2) {
         for (let j = 1; j <= canvas.height / unit; j += 2) {
             context.strokeRect(0, 0, unit * i, unit * j);
-        };
-    };
+        }
+    }
     context.lineWidth = 0;
-};
+}
 drawBackground();
 
 function drawStartingPositions(players) {
@@ -101,7 +105,7 @@ function drawStartingPositions(players) {
         context.strokeStyle = 'black';
         context.strokeRect(p.x, p.y, unit, unit);
     });
-};
+}
 drawStartingPositions(Player.allInstances);
 
 let outcome, winnerColor, playerCount = Player.allInstances.length;
@@ -110,7 +114,6 @@ function draw() {
     if (Player.allInstances.filter(p => !p.key).length === 0) {
         Player.allInstances.forEach(p => {
             if (p.key) {
-
                 p.direction = p.key;
 
                 context.fillStyle = p.color;
@@ -127,16 +130,13 @@ function draw() {
                 playableCells.delete(`${p.x}x${p.y}y`);
 
                 if (!p.dead) {
-                    if (p.direction === "LEFT") p.x -= unit;
-                    if (p.direction === "UP") p.y -= unit;
-                    if (p.direction === "RIGHT") p.x += unit;
-                    if (p.direction === "DOWN") p.y += unit;
-                }
-                else resetGame() ;
-            };
-
+                    if (p.direction === Direction.LEFT) p.x -= unit;
+                    if (p.direction === Direction.UP) p.y -= unit;
+                    if (p.direction === Direction.RIGHT) p.x += unit;
+                    if (p.direction === Direction.DOWN) p.y += unit;
+                } else resetGame();
+            }
         });
-
     }
 }
 
@@ -172,4 +172,4 @@ function resetGame() {
     // Ensure draw() has stopped, then re-trigger it
     clearInterval(game);
     game = setInterval(draw, 100);
-};
+}
