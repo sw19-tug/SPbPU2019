@@ -13,7 +13,7 @@ function guessLetter(){
     targetButton.setAttribute("disabled", "disabled")
     let wordToUpper= word.toUpperCase();
     if (wordToUpper.indexOf(targetButton.value)===-1){
-        drowHangman();
+        drawHangman();
     }
     document.getElementById('letterBank').onclick = function (e) {
         letter = e.target.getAttribute('id');
@@ -21,7 +21,7 @@ function guessLetter(){
     }
 }
 
-function drowHangman(){
+function drawHangman(){
     if(hangmanParts.length){
     if( hangmanParts[0].className!='man')
     {
