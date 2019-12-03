@@ -26,8 +26,7 @@ class Player {
 Player.allInstances = [];
 
 let p1 = new Player(unit * 6, unit * 6, '#FF5050');
-//For next US
-//let p2 = new Player(unit * 43, unit * 43, '#75A4FF');
+let p2 = new Player(unit * 44, unit * 28, '#75A4FF');
 
 function setKey(key, player, up, right, down, left) {
     switch (key) {
@@ -66,6 +65,7 @@ function handleKeyPress(event) {
             break;
     }
     setKey(key, p1, 'w', 'd', 's', 'a');
+    setKey(key, p2, 'arrowup', 'arrowright', 'arrowdown', 'arrowleft');
 }
 document.addEventListener('keydown', handleKeyPress);
 
