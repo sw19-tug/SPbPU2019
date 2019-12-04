@@ -17,6 +17,14 @@
     <div id="games" class="row row justify-content-center">
         <div class="game-wrapper">
             <div class="game-content">
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+                        <h2 id="win" class="modal-header">You win</h2>
+                        <h2 id="lost" class="modal-header">You lost</h2>
+                        <p id="word"></p>
+                        <button class="modal-btn" onClick="window.location.reload();">Play again</button>
+                    </div>
+                </div>
                 <table>
                     <tr>
                         <td height="150px">
@@ -32,16 +40,16 @@
                             <div id="hangmanPicture">
                                 <div class="hangman">
                                     <div class="shaft invisible"></div>
-                                    <div class="pole invisible"></div>  
+                                    <div class="pole invisible"></div>
                                     <div class="rope invisible"></div>
                                     <div class="base invisible"></div>
                                     <div class="man">
-                                            <div class="face invisible"></div>
-                                            <div class="body invisible"></div>
-                                            <div class="lefthand part invisible"></div>
-                                            <div class="righthand part invisible"></div>
-                                            <div class="leftfoot part invisible"></div>
-                                            <div class="rightfoot part invisible"></div>
+                                        <div class="face invisible"></div>
+                                        <div class="body invisible"></div>
+                                        <div class="lefthand part invisible"></div>
+                                        <div class="righthand part invisible"></div>
+                                        <div class="leftfoot part invisible"></div>
+                                        <div class="rightfoot part invisible"></div>
                                     </div>
                                 </div>
                             </div>
@@ -92,3 +100,6 @@
 
 
 </html>
+
+
+
