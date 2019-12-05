@@ -10,7 +10,8 @@ class Game {
 	}
 
 	start() {
-        alert("Game started!");
+        document.getElementById("main_menu").style.display="none";
+        document.getElementById("game_field").style.display="block";
     }
 
 	stop() {
