@@ -48,6 +48,15 @@ body{
     border-radius: 5px;
     background: #1b1e21;
 }
+.option-menu-content {
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    background: #1b1e21;  
+}
 
 .start-up-menu-title {
     padding-top: 70px;
