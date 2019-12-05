@@ -112,6 +112,7 @@ body{
 
 .modal-body {
     color: #fff;
+    text-align: center;
 }
 
 .modal-footer {
@@ -125,4 +126,10 @@ body{
 
 .btn-next {
     background-color: darkblue!important;
+}
+
+.color-box {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
 }

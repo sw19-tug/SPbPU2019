@@ -184,7 +184,7 @@ function showModal() {
             }
     })
 
-    document.getElementById("modal-body").innerText = "Player " + winnerColor + " wins";
+    document.getElementById("modal-body").innerHTML = 'Player <span class=\"color-box\" style=\"background-color: '+winnerColor+'\"></span> wins!';
     clearInterval(game);
     document.getElementById("modal").style.display="block";
 }
@@ -194,3 +194,4 @@ function goToMenu() {
     document.location.href = "index.html";
 }
 
+1
