@@ -134,7 +134,7 @@ function draw() {
                     if (p.direction === Direction.UP) p.y -= unit;
                     if (p.direction === Direction.RIGHT) p.x += unit;
                     if (p.direction === Direction.DOWN) p.y += unit;
-                } else resetGame();
+                } else showModal();
             }
         });
     }
@@ -143,6 +143,7 @@ function draw() {
 let game = setInterval(draw, 100);
 
 function resetGame() {
+    document.getElementById("modal").style.display="none";
     // Remove the results node
     const result = document.getElementById('result');
     if (result) result.remove();
@@ -173,3 +174,23 @@ function resetGame() {
     clearInterval(game);
     game = setInterval(draw, 100);
 }
+
+function showModal() {
+    Player.allInstances.forEach(p=>{
+        if (p.dead === false)
+            {
+                winnerColor = p.color;
+                p.dead = true
+            }
+    })
+
+    document.getElementById("modal-body").innerText = "Player " + winnerColor + " wins";
+    clearInterval(game);
+    document.getElementById("modal").style.display="block";
+}
+
+function goToMenu() {
+    document.getElementById("modal").style.display="none";
+    document.location.href = "index.html";
+}
+
