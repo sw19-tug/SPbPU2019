@@ -10,12 +10,12 @@ body{
         background-color: #1c1d1f;
 }
 #games{
-	    width: 550px;
+	    width: 1000px;
 	    height: 600px;
 	    background-color: #1c1d1f;	
         border: 1px solid #90e815;
 	    position: absolute;
-	    top:30px;
+	    top: 30px;
 	    left: 0;
 	    right: 0;  	
 	    margin-left: auto;
@@ -30,9 +30,15 @@ body{
         font-size: 20px;
         color: #90e815;        
 }
-.main_menu{
+#main_menu{
   	    height: 95%;
         text-align: center;
+}
+#game_field{
+        height: 95%;
+        text-align: center;
+        display: none;
+
 }
 .mmb{
 	    height: 10%;
@@ -48,4 +54,12 @@ body{
 }
 .mmb:hover{
         border: 2px solid #90e815;
+}
+#cannon{
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
 }
