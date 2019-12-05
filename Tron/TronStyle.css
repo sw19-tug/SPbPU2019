@@ -96,3 +96,40 @@ body{
     height: 100%;
     width: 100%;
 }
+
+.modal {
+    display: none;
+}
+
+.modal-header {
+    justify-content: center!important;
+    border-bottom: none!important;
+}
+
+.modal-header {
+    color: #fff;
+}
+
+.modal-body {
+    color: #fff;
+    text-align: center;
+}
+
+.modal-footer {
+    border-top: none!important;
+    justify-content: space-evenly!important;
+}
+
+.btn-menu {
+    background-color: darkslategrey!important;
+}
+
+.btn-next {
+    background-color: darkblue!important;
+}
+
+.color-box {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}

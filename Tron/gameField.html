@@ -12,6 +12,25 @@
 <div class="justify-content-center fieldWrapper">
     <canvas id="tron" width="750" height="510" class="field"/>
 </div>
+
+<!-- Modal -->
+<div class="modal" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" >
+        <div class="modal-content bg-dark neon-wrapper">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Round is over</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-menu" onclick="goToMenu()">Go to menu</button>
+                <button type="button" class="btn btn-next" onclick="resetGame()">Next round</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="TronJS.js"></script>
 </body>
 </html>
