@@ -67,6 +67,7 @@ function handleKeyPress(event) {
     setKey(key, p1, 'w', 'd', 's', 'a');
     setKey(key, p2, 'arrowup', 'arrowright', 'arrowdown', 'arrowleft');
 }
+
 document.addEventListener('keydown', handleKeyPress);
 
 function getPlayableCells(canvas, unit) {
@@ -78,6 +79,7 @@ function getPlayableCells(canvas, unit) {
     }
     return playableCells;
 }
+
 let playableCells = getPlayableCells(canvas, unit);
 
 function drawBackground() {
@@ -96,6 +98,7 @@ function drawBackground() {
     }
     context.lineWidth = 0;
 }
+
 drawBackground();
 
 function drawStartingPositions(players) {
@@ -106,6 +109,7 @@ function drawStartingPositions(players) {
         context.strokeRect(p.x, p.y, unit, unit);
     });
 }
+
 drawStartingPositions(Player.allInstances);
 
 let outcome, winnerColor, playerCount = Player.allInstances.length;
@@ -143,7 +147,7 @@ function draw() {
 let game = setInterval(draw, 100);
 
 function resetGame() {
-    document.getElementById("modal").style.display="none";
+    document.getElementById("modal").style.display = "none";
     // Remove the results node
     const result = document.getElementById('result');
     if (result) result.remove();
@@ -176,21 +180,20 @@ function resetGame() {
 }
 
 function showModal() {
-    Player.allInstances.forEach(p=>{
-        if (p.dead === false)
-            {
-                winnerColor = p.color;
-                p.dead = true
-            }
-    })
+    Player.allInstances.forEach(p => {
+        if (p.dead === false) {
+            winnerColor = p.color;
+            p.dead = true
+        }
+    });
 
-    document.getElementById("modal-body").innerHTML = 'Player <span class=\"color-box\" style=\"background-color: '+winnerColor+'\"></span> wins!';
+    document.getElementById("modal-body").innerHTML = 'Player <span class=\"color-box\" style=\"background-color: ' + winnerColor + '\"></span> wins!';
     clearInterval(game);
-    document.getElementById("modal").style.display="block";
+    document.getElementById("modal").style.display = "block";
 }
 
 function goToMenu() {
-    document.getElementById("modal").style.display="none";
+    document.getElementById("modal").style.display = "none";
     document.location.href = "index.html";
 }
 
