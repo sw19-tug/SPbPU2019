@@ -2,9 +2,11 @@
 
 let game = new Game();
 
+// setup logics of start button
 let startButton = document.getElementById('start_button');
 startButton.addEventListener('click', () => game.start());
 
+// setup keyboard logics
 function logKey(e) {
 	pressedKey=`${e.code}`;
 	switch(pressedKey){
