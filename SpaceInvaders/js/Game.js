@@ -25,7 +25,6 @@ class Game {
         this.cannonHeight=document.getElementById("cannon").clientHeight;
         document.onkeydown = logKey;
         this.setAliens();
-
     }
 
 	stop() {
@@ -51,8 +50,8 @@ class Game {
     			this.container=document.createElement('DIV');
     			this.alienContainers[i].push(this.container);
     			this.alienContainers[i][j].style.height='40px';
-    			this.alienContainers[i][j].style.width=this.elementWidth*1.5+'px';
-    			this.alienContainers[i][j].style.display='inline-block';
+    			this.alienContainers[i][j].style.width=this.elementWidth*1.5+2+'px';
+    			this.alienContainers[i][j].style.float='left';
     			this.alienImg=document.createElement("IMG");
     			this.alienImg.src="images/invader.png";
     			this.alienImg.style.width=this.elementWidth+'px';
@@ -64,7 +63,7 @@ class Game {
     		this.mainContainer.appendChild(this.rowContainer);
     	}
     	document.getElementById("game_field").appendChild(this.mainContainer);
-    	
 
+        getAliens();
     }
 }
