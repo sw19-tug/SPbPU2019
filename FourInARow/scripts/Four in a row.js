@@ -2,14 +2,18 @@
 (function initializeGame() {
     const fieldWidth = 7;
     const fieldHeight = 6;
-    let cells = [];
-    let filledCellsNum = 0;
+    const cells = [];
+    let filledCellsNum = 0; 
     let unlocked = true; 
-    let flagPlayer = true;
-    let [player1, player2] = getRandomColor();
+    let flagPlayer = true; // true -> player1; false -> player2
+    let player1, player2;
+    const firstCircle = document.getElementById("first_circle");
+    const secondCircle = document.getElementById("second_circle");
+
+    setColors(getRandomColors());
 
     (function addCells() {
-        let field = document.getElementById("field");
+        const field = document.getElementById("field");
 
         for (let i = 0; i < fieldWidth; i++) {
             cells[i] = [];
@@ -20,8 +24,7 @@
             for (let i = 0; i < fieldWidth; i++) {
                 cells[i][j] = document.createElement('div');
                 cells[i][j].className = 'cell';
-                cells[i][j].column = i; 
-                cells[i][j].row = j;
+                cells[i][j].column = i;
                 cells[i][j].filled = false;
                 cells[i][j].addEventListener('click', makeMove);
                 field.appendChild(cells[i][j]);
@@ -50,6 +53,21 @@
         setTimeout(fillCell, interval, cells[column][i - 1]);
     }
 
+    function currentPlayer() {
+
+        if (flagPlayer) {
+            firstCircle.style.transform = 'scale(1.2, 1.2)';
+            secondCircle.style.transform = '';
+        }
+        else {
+            secondCircle.style.transform = 'scale(1.2, 1.2)';
+            firstCircle.style.transform = '';
+        }
+
+        const pText = document.querySelector(".playerMove-text");
+        pText.innerHTML = `${playerColoredNumeral()} plays now!`;
+    }
+
     function fillCell(cell) {
         cell.style.backgroundColor = player();
         cell.player1 = flagPlayer;
@@ -62,25 +80,28 @@
     function endOrNextPlayer() {
         if (filledCellsNum === fieldHeight * fieldWidth) {
             endGame("Draw!");
+            return;
         }
-        else {
-            const winRow = detectWinRow();
 
-            if (winRow) {
-                winRow.forEach(winCell => winCell.classList.add('win-cell'));
-                const whoWon = flagPlayer ? 'First' : 'Second';
-                const congratString = '<font color="' + player() + '">' + whoWon + '</font> player won! Congratulations!';
-                endGame(congratString);
-            }
-            else {
-                flagPlayer = !flagPlayer;
-                unlocked = true;
-            }
+        const winRow = detectWinRow();
+
+        if (!winRow) {
+            nextPlayer();
+            return;
         }
+
+        winRow.forEach(winCell => winCell.classList.add('win-cell'));
+        endGame(`${playerColoredNumeral()} player won! Congratulations!`);
     }
 
-    function endGame(endMessage) {
-        console.log(endMessage);
+    function nextPlayer() {
+        flagPlayer = !flagPlayer;
+        currentPlayer();
+        unlocked = true;
+    }
+
+    function endGame(htmlEndMessage) {
+        console.log(htmlEndMessage);
     }
 
     function detectWinRow() {
@@ -101,7 +122,7 @@
 
         const height = cells[0].length;
         const width = cells.length;
-        let horizontals = [];
+        const horizontals = [];
 
         for (let j = 0; j < height; j++) {
             horizontals[j] = [];
@@ -113,14 +134,14 @@
         for (let bigArr of [cells, horizontals, diagonals]) {
             for (let nestArr of bigArr) {
                 let count = 0;
+                let curColor, prevColor;
                 for (let i = 1; i < nestArr.length; i++) {
-                    let curColor = nestArr[i].style.backgroundColor;
-                    let prevColor = nestArr[i - 1].style.backgroundColor;
+                    curColor = nestArr[i].style.backgroundColor;
+                    prevColor = nestArr[i - 1].style.backgroundColor;
 
                     if (nestArr[i].filled && curColor === prevColor) {
                         count++;
-                    }
-                    else {
+                    } else {
                         count = 0;
                     }
 
@@ -134,17 +155,27 @@
         return false;
     }
 
+    function playerColoredNumeral() {
+        return `<font color=${player()}> ${flagPlayer ? `First` : `Second`} </font>`;
+    }
+
     function player() {
         return flagPlayer ? player1 : player2;
     }
 
-    function getRandomColor() {
+    function setColors(colorsArr) {
+        [player1, player2] = colorsArr;
+        firstCircle.style.backgroundColor = player1;
+        secondCircle.style.backgroundColor = player2;
+    }
+
+    function getRandomColors() {
         return getRand(0, 1) ? ["gold", "red"] : ["red", "gold"];
     }
 
     function getRand(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
     }
 })();

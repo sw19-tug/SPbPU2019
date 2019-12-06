@@ -1,34 +1,62 @@
 ﻿@charset "UTF-8";
 
 body {
-    margin: 0px;
-    padding: 0px;
+	margin: 0px;
+	padding: 0px;
 }
 
 #field {
-    height: 540px;
-    width: 630px;
-    border: 1px solid black;
-    margin: auto;
-    margin-top: 200px;
-    background-color: RoyalBlue;
-    border-radius: 5%;
+	height: 540px;
+	width: 630px;
+	border: 1px solid black;
+	margin: auto;
+	margin-top: 235px;
+	background-color: RoyalBlue;
+	border-radius: 5%;
 }
 
 .cell {
-    width: 72px;
-    height: 72px;
-    border: 1px solid rgb(0, 35, 102);
-    float: left;
-    background-color: white;
-    border-radius: 100%;
-    margin: 9px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+	width: 72px;
+	height: 72px;
+	border: 1px solid rgb(0, 35, 102);
+	float: left;
+	background-color: white;
+	border-radius: 100%;
+	margin: 9px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
 .win-cell {
-  border-color: white !important;
-  transform: scale(1.2, 1.2);
+	border-color: white !important;
+	transform: scale(1.2, 1.2);
+}
+
+.circle {
+	width: 72px;
+	height: 72px;
+	border: 1px;
+	float: left;
+	border-radius: 100%;
+	margin: 9px;
+}
+
+#playerMove {
+	height: 100px;
+	width: 630px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 30px;
+	margin: 30px auto;
+}
+
+.playerMove-text {
+	font-family: 'Baloo Bhai', cursive;
+	font-size: 40px;
+	float: left;
+	margin: auto 10px;
+	width: 420px;
+	text-align: center;
 }
