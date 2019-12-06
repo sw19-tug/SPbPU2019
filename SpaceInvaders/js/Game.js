@@ -10,21 +10,19 @@ class Game {
 		
 	}
 
-	start() {
-		// hide main menu
-        document.getElementById("main_menu").style.display="none";  
-
-		// show gamefield elements
+	start() {	
+        //set the position of the cannon
+        this.cannonPosition=document.getElementById("main_menu").clientWidth/2;
+        document.getElementById("cannon").style.left=this.cannonPosition+'px';
+        //hide the main menu
+        document.getElementById("main_menu").style.display="none";
+        //show the gamefield
         document.getElementById("game_field").style.display="block";
+        //get gamefield and cannon parameters
         this.fieldHeight=document.getElementById("game_field").clientHeight;
         this.fieldWidth=document.getElementById("game_field").clientWidth;
-		
-		// show cannon
-        this.cannonPosition=0;
-        document.getElementById("cannon").style.left=this.cannonPosition;
         this.cannonWidth=document.getElementById("cannonPic").clientWidth;
-		
-		// setup controls
+        this.cannonHeight=document.getElementById("cannon").clientHeight;
         document.onkeydown = logKey;
     }
 

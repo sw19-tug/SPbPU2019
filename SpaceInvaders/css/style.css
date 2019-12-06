@@ -7,12 +7,11 @@
         src: url('../fonts/roboto.ttf')
 }
 body{
-        background-color: #1c1d1f;
+        background-color: #151517;
 }
 #games{
 	    width: 1000px;
 	    height: 600px;
-	    background-color: #1c1d1f;	
         border: 1px solid #90e815;
 	    position: absolute;
 	    top: 30px;
@@ -43,7 +42,7 @@ body{
 .mmb{
 	    height: 10%;
         width: 130px;
-	    background-color: #1c1d1f;
+	    background-color: #151517;
         border: 2px solid #6b6e70;
 	    outline: none;
         position: relative;
@@ -58,8 +57,4 @@ body{
 #cannon{
         position: absolute;
         bottom: 5px;
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;
 }
