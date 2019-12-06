@@ -24,10 +24,47 @@ class Game {
         this.cannonWidth=document.getElementById("cannonPic").clientWidth;
         this.cannonHeight=document.getElementById("cannon").clientHeight;
         document.onkeydown = logKey;
+        this.setAliens();
+
     }
 
 	stop() {
 
     }
-    
+
+    setAliens(){
+    	//create an array of blocks containing aliens
+    	this.rows=5;
+    	this.cols=11;
+    	this.alienContainers=[];
+    	this.mainContainer=document.createElement('DIV');
+    	this.mainContainer.style.position="absolute";
+    	this.mainContainer.style.left='0px';
+    	this.elementWidth=40;
+    	for (var i=0; i<this.rows; i++){
+    		this.alienContainers.push([]);
+    		//creating a diffrent container for each row
+    		this.rowContainer=document.createElement('DIV');
+    		this.rowContainer.id='row'+i;
+    		for (var j=0; j<this.cols; j++){
+    			//creating a container for each alien
+    			this.container=document.createElement('DIV');
+    			this.alienContainers[i].push(this.container);
+    			this.alienContainers[i][j].style.height='40px';
+    			this.alienContainers[i][j].style.width=this.elementWidth*1.5+'px';
+    			this.alienContainers[i][j].style.display='inline-block';
+    			this.alienImg=document.createElement("IMG");
+    			this.alienImg.src="images/invader.png";
+    			this.alienImg.style.width=this.elementWidth+'px';
+    			this.alienImg.id='alien '+i+' '+j;
+    			this.container.appendChild(this.alienImg);
+    			
+    			this.rowContainer.appendChild(this.alienContainers[i][j]);
+    		}
+    		this.mainContainer.appendChild(this.rowContainer);
+    	}
+    	document.getElementById("game_field").appendChild(this.mainContainer);
+    	
+
+    }
 }
