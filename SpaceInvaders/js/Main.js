@@ -10,6 +10,9 @@ let isCannonBallMoving=0;
 let cannonBallTimer;
 let alienCoordinates=[];//list of coordinates of the lowest aliens
 let horDir=1;//direction for horizontal movement
+let bulletTimer;
+let bulletCounter=0;
+let bulletList=[];
 
 
 //choose action depending on the pressed key
@@ -205,6 +208,7 @@ function checkForBottom(){
     if(document.getElementById('mainContainer').getBoundingClientRect().bottom>=document.getElementById('cannon').getBoundingClientRect().top){
         clearInterval(game.moveDownTimer);
         clearInterval(game.moveToTheSideTimer);
+        clearInterval(game.bulletTimer);
     }
 }
 
@@ -222,3 +226,45 @@ function checkForSide(){
 function victory(){
     //what to do if all of the aliens are defeated
 }
+
+function bulletReachedCannon(){
+    console.log('Bullet reached cannon');
+}
+
+
+//creating a bullet from a random alien at random time intervals
+function createBullet(){
+    randTime=Math.floor(Math.random()*100);
+    if (randTime%10==0){
+        fieldLeft=document.getElementById("game_field").getBoundingClientRect().left;
+        fieldTop=document.getElementById("game_field").getBoundingClientRect().top;
+        randAlien=Math.floor(Math.random()*alienCoordinates.length);
+        raBottom=alienCoordinates[randAlien][2]-fieldTop;
+        raLeft=alienCoordinates[randAlien][0]-fieldLeft+15;
+        bullet=document.createElement('IMG');
+        bullet.src='images/bullet.png';
+        bullet.id='bullet'+bulletCounter;
+        bullet.style.position='absolute';
+        bullet.style.width='10px';
+        bullet.style.top=raBottom+11+'px';
+        bullet.style.left=raLeft+'px';
+        document.getElementById('game_field').appendChild(bullet);
+        bulletList.push(bullet);
+        bulletCounter++;
+    }
+
+}
+
+function moveAllBullets(){
+    bulletOffset=10;
+    for (var i=0; i<bulletList.length; i++){        
+        currentBulletTop=parseInt(bulletList[i].style.top);
+
+        bulletList[i].style.top=currentBulletTop+bulletOffset+'px';
+        if(bulletList[i].getBoundingClientRect().bottom>=document.getElementById("cannon").getBoundingClientRect().top+
+            document.getElementById("cannon").clientHeight){
+            bulletList[i].parentNode.removeChild(bulletList[i]);
+        }
+    }
+}
+

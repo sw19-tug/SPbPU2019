@@ -29,6 +29,9 @@ class Game {
         this.setAliens();
         this.moveDownTimer=setInterval("moveAliensDown()", 6000);
         this.moveToTheSideTimer=setInterval("moveAliens()", 700);
+       
+        this.bulletCreateTimer=setInterval("createBullet()", 200);
+        this.bulletMoveTimer=setInterval("moveAllBullets()", 200);
     }
 
 	stop() {
