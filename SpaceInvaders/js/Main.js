@@ -9,7 +9,7 @@ let cannonBall=document.createElement('IMG');
 let isCannonBallMoving=0;
 let cannonBallTimer;
 let alienCoordinates=[];//list of coordinates of the lowest aliens
-
+let horDir=1;//direction for horizontal movement
 
 
 //choose action depending on the pressed key
@@ -50,7 +50,7 @@ function shoot(){
         cannonBall.style.left=initialPositionLeft+'px';
         cannonBall.style.bottom=initialPositionBottom+'px';
         document.getElementById("game_field").appendChild(cannonBall);
-        cannonBallTimer=setInterval("moveCannonBall(cannonBall)", 100);
+        cannonBallTimer=setInterval("moveCannonBall(cannonBall)", 60);
         isCannonBallMoving=1;
     }    
 }
@@ -61,10 +61,12 @@ function moveCannonBall(){
     newBottom=parseInt(cannonBall.style.bottom)+speed;
     if(newBottom<game.fieldHeight){
         cannonBall.style.bottom=newBottom+'px';
-        leftBound=cannonBall.getBoundingClientRect().left;
-        rightBound=cannonBall.getBoundingClientRect().right;
-        bottomBound=cannonBall.getBoundingClientRect().bottom;
-        checkForCollision(leftBound, rightBound, bottomBound);
+        cannonCoord=cannonBall.getBoundingClientRect();
+        leftBound=cannonCoord.left;
+        rightBound=leftBound+cannonBall.clientWidth;
+        bottomBound=cannonCoord.bottom;
+        topBound=bottomBound+cannonBall.clientHeight;
+        checkForCollision(leftBound, rightBound, topBound, bottomBound);
     }
     else{
         cannonBall.style.display='none';
@@ -76,36 +78,52 @@ function moveCannonBall(){
 //get coordinates of aliens which are not dead and are the last ones in their columns
 function getAliens(){
 	alienCoordinates=[];
-	for (var i=0; i<game.rows-1; i++){
-		for (var j=0; j<game.cols; j++){
+	for (var i=0; i<game.lastRow; i++){
+		for (var j=game.firstCol; j<=game.lastCol; j++){
 			if (game.alienContainers[i][j].hasChildNodes()&&!game.alienContainers[i+1][j].hasChildNodes()){
-				alienCoordinates.push([document.getElementById('alien '+i+' '+j).getBoundingClientRect().left, 
-				document.getElementById('alien '+i+' '+j).getBoundingClientRect().right,
-				document.getElementById('alien '+i+' '+j).getBoundingClientRect().bottom,
-				i, j]);
+            alien=document.getElementById('alien '+i+' '+j);
+            coord=alien.getBoundingClientRect();
+            aaLeft=coord.left;
+            aaBottom=coord.bottom;
+            aaRight=aaLeft+alien.clientWidth;
+            aaTop=aaBottom+alien.clientHeight;
+            alienCoordinates.push([aaLeft, aaRight, aaTop, aaBottom, i, j]);
 			}
 		}
 	}
-	i=game.rows-1;
-	for (var j=0; j<game.cols; j++){
+	i=game.lastRow;
+	for (var j=game.firstCol; j<=game.lastCol; j++){
+
 		if (game.alienContainers[i][j].hasChildNodes()){
-			alienCoordinates.push([document.getElementById('alien '+i+' '+j).getBoundingClientRect().left, 
-				document.getElementById('alien '+i+' '+j).getBoundingClientRect().right,
-				document.getElementById('alien '+i+' '+j).getBoundingClientRect().bottom,
-				i, j]);
+            alien=document.getElementById('alien '+i+' '+j);
+            coord=alien.getBoundingClientRect();
+            aaLeft=coord.left;
+            aaBottom=coord.bottom;
+            aaRight=aaLeft+alien.clientWidth;
+            aaTop=aaBottom+alien.clientHeight;
+			alienCoordinates.push([aaLeft, aaRight, aaTop, aaBottom, i, j]);
 			
 		}
 	}
 }
 
 //checking if the cannon ball hit any of the aliens
-function checkForCollision(left, right, bottom){
+function checkForCollision(leftB, rightB, topB, bottomB){
+    getAliens();
 	for (var i=0; i<alienCoordinates.length; i++){
-		if ((alienCoordinates[i][0]<=left)&&(alienCoordinates[i][1]>=right)&&(alienCoordinates[i][2]>=bottom)){
+        aLeft=alienCoordinates[i][0];
+        aRight=alienCoordinates[i][1];
+        aTop=alienCoordinates[i][2];
+        aBottom=alienCoordinates[i][3];
+        
+		if (((leftB>=aLeft&&rightB<=aRight)||(leftB<=aLeft&&rightB>=aLeft)||(leftB<=aRight&&rightB>=aRight))&&
+            ((topB<=aTop&&bottomB>=aBottom)||(topB>=aBottom&&bottomB<=aBottom)||(topB>=aTop&&bottomB<=aBottom))){
+
+            
 			cannonBall.style.display='none';
         	isCannonBallMoving=0;
         	clearInterval(cannonBallTimer);
-        	elem=document.getElementById('alien '+alienCoordinates[i][3]+' '+alienCoordinates[i][4]);
+        	elem=document.getElementById('alien '+alienCoordinates[i][4]+' '+alienCoordinates[i][5]);
         	elem.parentNode.removeChild(elem);
             game.numberOfAliens--;
             if (game.numberOfAliens){
@@ -125,8 +143,18 @@ function moveAliensDown(){
     offset=10;
     currentTop=parseInt(document.getElementById("mainContainer").style.top);
     document.getElementById("mainContainer").style.top=currentTop+offset+'px';
+    getAliens();
     checkForBottom();
 
+}
+
+//moving aliens either left or right
+function moveAliens(){  
+    checkForSide();
+    sideOffset=7;
+    currentLeft=parseInt(document.getElementById('mainContainer').style.left);
+    document.getElementById('mainContainer').style.left=currentLeft+sideOffset*horDir+'px';
+    getAliens();
 }
 
 //checking if the last row is empty and removing containers if it is
@@ -176,6 +204,18 @@ function EmptyColumn(j, pos){
 function checkForBottom(){
     if(document.getElementById('mainContainer').getBoundingClientRect().bottom>=document.getElementById('cannon').getBoundingClientRect().top){
         clearInterval(game.moveDownTimer);
+        clearInterval(game.moveToTheSideTimer);
+    }
+}
+
+//checking if the aliens riched either left or right border of the gamefield
+function checkForSide(){
+    
+    if((document.getElementById('mainContainer').getBoundingClientRect().left
+        <=document.getElementById('game_field').getBoundingClientRect().left-1)||
+        (document.getElementById('mainContainer').getBoundingClientRect().right+1
+        >=document.getElementById('game_field').getBoundingClientRect().right)){
+        horDir=horDir*(-1);
     }
 }
 
