@@ -121,3 +121,7 @@ button {
 p {
     color: rgb(120, 107, 107, 0.8);
 }
+
+#modal-sign {
+    display: none;
+}

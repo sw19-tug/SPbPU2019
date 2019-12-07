@@ -13,7 +13,7 @@
 </head>
 <body>
     <h1>Tic Tac Toe</h1>
-    <div id="modal" class="modal">
+    <div id="modal-menu" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Select mode</h2>
@@ -22,6 +22,17 @@
                 <p> You can choose playing mode: alone or multiplayer.</p>
                 <button onclick="selectMode(0);">1 Player</button>
                 <button onclick="selectMode(1);">2 Players</button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-sign" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Choose sign</h2>
+            </div>
+            <div class="but">
+                <button id = "X">X</button>
+                <button id = "O">O</button>
             </div>
         </div>
     </div>
