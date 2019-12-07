@@ -22,18 +22,22 @@ function guessLetter(){
 }
 
 function drawHangman(){
-    if(hangmanParts.length){
-    if( hangmanParts[0].className!='man')
-    {
-    hangmanParts[0].classList.remove("invisible");
-    hangmanParts.shift();
-    }
-    else{
-        man=document.querySelector(".man")
-        hangmanParts=Array.from(man.children)
-        console.log(hangmanParts)
-    }
-}
+	if (hangmanParts.length) {
+		if (hangmanParts[0].className != 'man') {
+			hangmanParts[0].classList.remove("invisible");
+			hangmanParts.shift();
+			if (!hangmanParts.length) {
+				document.getElementById("modal").style.display = "inline";
+				document.getElementById("lost").style.display = "inline";
+				document.getElementById("word").innerHTML += "Word: " + word;
+			}
+		}
+		else {
+			man = document.querySelector(".man")
+			hangmanParts = Array.from(man.children)
+			console.log(hangmanParts)
+		}
+	}
 }
 
 function placeholders() {
@@ -55,7 +59,12 @@ function addLetters(letter) {
         }
     }
     var wrapper = document.getElementById('wordWrapper');
-    wrapper.textContent = arrayRes.join(" ");
+	wrapper.textContent = arrayRes.join(" ");
+
+	if (arrayRes.join("") == word) {
+		document.getElementById("modal").style.display = "inline";
+		document.getElementById("win").style.display = "inline";
+	}
 }
 
 function makeLettersBig() {
@@ -72,6 +81,7 @@ function makeLettersBig() {
         flgBig = true;
     }
 }
+
 window.onload = function() { 
     placeholders();
     const hangmanPic=document.querySelector(".hangman");
