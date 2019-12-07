@@ -7,7 +7,10 @@ startButton.addEventListener('click', () => game.start());
 
 let cannonBall=document.createElement('IMG');
 let isCannonBallMoving=0;
-let intr;//timer for the cannon ball
+let cannonBallTimer;
+let alienCoordinates=[];//list of coordinates of the lowest aliens
+
+
 
 //choose action depending on the pressed key
 function logKey(e) {
@@ -47,7 +50,7 @@ function shoot(){
         cannonBall.style.left=initialPositionLeft+'px';
         cannonBall.style.bottom=initialPositionBottom+'px';
         document.getElementById("game_field").appendChild(cannonBall);
-        intr=setInterval("moveCannonBall(cannonBall)", 100);
+        cannonBallTimer=setInterval("moveCannonBall(cannonBall)", 100);
         isCannonBallMoving=1;
     }    
 }
@@ -58,10 +61,124 @@ function moveCannonBall(){
     newBottom=parseInt(cannonBall.style.bottom)+speed;
     if(newBottom<game.fieldHeight){
         cannonBall.style.bottom=newBottom+'px';
+        leftBound=cannonBall.getBoundingClientRect().left;
+        rightBound=cannonBall.getBoundingClientRect().right;
+        bottomBound=cannonBall.getBoundingClientRect().bottom;
+        checkForCollision(leftBound, rightBound, bottomBound);
     }
     else{
         cannonBall.style.display='none';
         isCannonBallMoving=0;
-        clearInterval(intr);
+        clearInterval(cannonBallTimer);
     }
+}
+
+//get coordinates of aliens which are not dead and are the last ones in their columns
+function getAliens(){
+	alienCoordinates=[];
+	for (var i=0; i<game.rows-1; i++){
+		for (var j=0; j<game.cols; j++){
+			if (game.alienContainers[i][j].hasChildNodes()&&!game.alienContainers[i+1][j].hasChildNodes()){
+				alienCoordinates.push([document.getElementById('alien '+i+' '+j).getBoundingClientRect().left, 
+				document.getElementById('alien '+i+' '+j).getBoundingClientRect().right,
+				document.getElementById('alien '+i+' '+j).getBoundingClientRect().bottom,
+				i, j]);
+			}
+		}
+	}
+	i=game.rows-1;
+	for (var j=0; j<game.cols; j++){
+		if (game.alienContainers[i][j].hasChildNodes()){
+			alienCoordinates.push([document.getElementById('alien '+i+' '+j).getBoundingClientRect().left, 
+				document.getElementById('alien '+i+' '+j).getBoundingClientRect().right,
+				document.getElementById('alien '+i+' '+j).getBoundingClientRect().bottom,
+				i, j]);
+			
+		}
+	}
+}
+
+//checking if the cannon ball hit any of the aliens
+function checkForCollision(left, right, bottom){
+	for (var i=0; i<alienCoordinates.length; i++){
+		if ((alienCoordinates[i][0]<=left)&&(alienCoordinates[i][1]>=right)&&(alienCoordinates[i][2]>=bottom)){
+			cannonBall.style.display='none';
+        	isCannonBallMoving=0;
+        	clearInterval(cannonBallTimer);
+        	elem=document.getElementById('alien '+alienCoordinates[i][3]+' '+alienCoordinates[i][4]);
+        	elem.parentNode.removeChild(elem);
+            game.numberOfAliens--;
+            if (game.numberOfAliens){
+            	getAliens();
+                EmptyRow();
+                EmptyColumn(game.lastCol, 1);
+                EmptyColumn(game.firstCol, 0);
+            }
+            else{
+                victory();
+            }
+		}
+	}
+}
+
+function moveAliensDown(){
+    offset=10;
+    currentTop=parseInt(document.getElementById("mainContainer").style.top);
+    document.getElementById("mainContainer").style.top=currentTop+offset+'px';
+    checkForBottom();
+
+}
+
+//checking if the last row is empty and removing containers if it is
+function EmptyRow(){
+    i=game.lastRow;
+    isEmpty=1;
+    for (var j=0; j<=game.lastCol; j++){
+        if (game.alienContainers[i][j].hasChildNodes()){
+            isEmpty=0;
+        }
+    }
+    if(isEmpty){
+            elem=document.getElementById('row'+i);
+            elem.parentNode.removeChild(elem);
+            game.lastRow--;
+    }
+}
+
+//checking if the first or the last columns are empty and removing if they are
+function EmptyColumn(j, pos){
+    isEmpty=1;
+    for (var i=0; i<=game.lastRow; i++){
+        if (game.alienContainers[i][j].hasChildNodes()){
+            isEmpty=0;
+        }
+    }
+    if(isEmpty){
+            for (var i=0; i<=game.lastRow; i++){
+                elem=document.getElementById('cont '+i+' '+j);
+                elem.parentNode.removeChild(elem); 
+                
+                }
+            if (pos){
+             game.lastCol--; 
+
+            }
+            else{
+                game.firstCol++;
+                colWidth=document.getElementById('cont '+game.lastRow+' '+game.firstCol).offsetWidth;
+                left=parseInt(document.getElementById('mainContainer').style.left);
+                document.getElementById('mainContainer').style.left=left+colWidth+'px';        
+            }
+    }
+}
+
+//checking if the last row of aliens riched the bottom of the gamefield
+function checkForBottom(){
+    if(document.getElementById('mainContainer').getBoundingClientRect().bottom>=document.getElementById('cannon').getBoundingClientRect().top){
+        clearInterval(game.moveDownTimer);
+    }
+}
+
+function victory(){
+    //what to do if all of the aliens are defeated
 }
