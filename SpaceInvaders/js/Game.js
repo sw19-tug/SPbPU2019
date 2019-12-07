@@ -24,9 +24,11 @@ class Game {
         this.cannonWidth=document.getElementById("cannonPic").clientWidth;
         this.cannonHeight=document.getElementById("cannon").clientHeight;        
         this.moveDownTimer;
+        this.moveToTheSideTimer;
         document.onkeydown = logKey;
         this.setAliens();
-        this.moveDownTimer=setInterval("moveAliensDown()", 3000);;
+        this.moveDownTimer=setInterval("moveAliensDown()", 6000);
+        this.moveToTheSideTimer=setInterval("moveAliens()", 700);
     }
 
 	stop() {
