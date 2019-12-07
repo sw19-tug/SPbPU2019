@@ -107,8 +107,78 @@ function checkForCollision(left, right, bottom){
         	clearInterval(cannonBallTimer);
         	elem=document.getElementById('alien '+alienCoordinates[i][3]+' '+alienCoordinates[i][4]);
         	elem.parentNode.removeChild(elem);
-        	getAliens();
+            game.numberOfAliens--;
+            if (game.numberOfAliens){
+            	getAliens();
+                EmptyRow();
+                EmptyColumn(game.lastCol, 1);
+                EmptyColumn(game.firstCol, 0);
+            }
+            else{
+                victory();
+            }
 		}
 	}
 }
 
+function moveAliensDown(){
+    offset=10;
+    currentTop=parseInt(document.getElementById("mainContainer").style.top);
+    document.getElementById("mainContainer").style.top=currentTop+offset+'px';
+    checkForBottom();
+
+}
+
+//checking if the last row is empty and removing containers if it is
+function EmptyRow(){
+    i=game.lastRow;
+    isEmpty=1;
+    for (var j=0; j<=game.lastCol; j++){
+        if (game.alienContainers[i][j].hasChildNodes()){
+            isEmpty=0;
+        }
+    }
+    if(isEmpty){
+            elem=document.getElementById('row'+i);
+            elem.parentNode.removeChild(elem);
+            game.lastRow--;
+    }
+}
+
+//checking if the first or the last columns are empty and removing if they are
+function EmptyColumn(j, pos){
+    isEmpty=1;
+    for (var i=0; i<=game.lastRow; i++){
+        if (game.alienContainers[i][j].hasChildNodes()){
+            isEmpty=0;
+        }
+    }
+    if(isEmpty){
+            for (var i=0; i<=game.lastRow; i++){
+                elem=document.getElementById('cont '+i+' '+j);
+                elem.parentNode.removeChild(elem); 
+                
+                }
+            if (pos){
+             game.lastCol--; 
+
+            }
+            else{
+                game.firstCol++;
+                colWidth=document.getElementById('cont '+game.lastRow+' '+game.firstCol).offsetWidth;
+                left=parseInt(document.getElementById('mainContainer').style.left);
+                document.getElementById('mainContainer').style.left=left+colWidth+'px';        
+            }
+    }
+}
+
+//checking if the last row of aliens riched the bottom of the gamefield
+function checkForBottom(){
+    if(document.getElementById('mainContainer').getBoundingClientRect().bottom>=document.getElementById('cannon').getBoundingClientRect().top){
+        clearInterval(game.moveDownTimer);
+    }
+}
+
+function victory(){
+    //what to do if all of the aliens are defeated
+}
