@@ -33,11 +33,19 @@ function multiPlayer() {
   info.forEach(element => {
     element.classList.remove("invisible");
   });
-  sign_1=document.getElementById("sign-1");
-  sign_1.innerHTML="O";
-  sign_2=document.getElementById("sign-2");
-  sign_2.innerHTML="X";
+  RandomSign();
   startGame();
+}
+
+function RandomSign() {
+  const rand = Math.floor(1 + Math.random() * 2);
+  const signX="sign-"+rand;
+  const playerX=document.getElementById(signX);
+  playerX.innerHTML="X";
+  const signO="sign-"+(3-rand);
+  const playerO=document.getElementById(signO);
+  playerO.innerHTML="O"; 
+
 }
 
 function startGame() {
