@@ -10,8 +10,6 @@ let isCannonBallMoving=0;
 let cannonBallTimer;
 let alienCoordinates=[];//list of coordinates of the lowest aliens
 let horDir=1;//direction for horizontal movement
-let bulletTimer;
-let bulletCounter=0;
 let bulletList=[];
 
 
@@ -30,6 +28,9 @@ function logKey(e) {
                 break;
 	}
 }
+
+	//////////////////////////////////////
+	//////////////////////////////////////
 
 //move the cannon either left or right depending on given argument
 function moveCannon(direction){
@@ -72,40 +73,38 @@ function moveCannonBall(){
         checkForCollision(leftBound, rightBound, topBound, bottomBound);
     }
     else{
-        cannonBall.style.display='none';
-        isCannonBallMoving=0;
-        clearInterval(cannonBallTimer);
+		removeCannonBall();
     }
 }
+
+// removes cannon ball from gamefield
+function removeCannonBall() {
+    cannonBall.style.display='none';
+    isCannonBallMoving=0;
+    clearInterval(cannonBallTimer);
+}
+
+	//////////////////////////////////////
+	//////////////////////////////////////
 
 //get coordinates of aliens which are not dead and are the last ones in their columns
 function getAliens(){
 	alienCoordinates=[];
-	for (var i=0; i<game.lastRow; i++){
-		for (var j=game.firstCol; j<=game.lastCol; j++){
-			if (game.alienContainers[i][j].hasChildNodes()&&!game.alienContainers[i+1][j].hasChildNodes()){
-            alien=document.getElementById('alien '+i+' '+j);
-            coord=alien.getBoundingClientRect();
-            aaLeft=coord.left;
-            aaBottom=coord.bottom;
-            aaRight=aaLeft+alien.clientWidth;
-            aaTop=aaBottom+alien.clientHeight;
-            alienCoordinates.push([aaLeft, aaRight, aaTop, aaBottom, i, j]);
+	for (var i = 0; i <= game.lastRow; i++){
+		for (var j = game.firstCol; j <= game.lastCol; j++){
+			var cond = true;
+			if (i != game.lastRow) {
+				cond = !game.alienContainers[i+1][j].hasChildNodes();
 			}
-		}
-	}
-	i=game.lastRow;
-	for (var j=game.firstCol; j<=game.lastCol; j++){
-
-		if (game.alienContainers[i][j].hasChildNodes()){
-            alien=document.getElementById('alien '+i+' '+j);
-            coord=alien.getBoundingClientRect();
-            aaLeft=coord.left;
-            aaBottom=coord.bottom;
-            aaRight=aaLeft+alien.clientWidth;
-            aaTop=aaBottom+alien.clientHeight;
-			alienCoordinates.push([aaLeft, aaRight, aaTop, aaBottom, i, j]);
-			
+			if (game.alienContainers[i][j].hasChildNodes() && cond){
+				alien = document.getElementById('alien '+i+' '+j);
+				coord = alien.getBoundingClientRect();
+				aLeft = coord.left;
+				aBottom = coord.bottom;
+				aRight = aLeft + alien.clientWidth;
+				aTop = aBottom + alien.clientHeight;
+				alienCoordinates.push([aLeft, aRight, aTop, aBottom, i, j]);
+			}			
 		}
 	}
 }
@@ -118,19 +117,17 @@ function checkForCollision(leftB, rightB, topB, bottomB){
         aRight=alienCoordinates[i][1];
         aTop=alienCoordinates[i][2];
         aBottom=alienCoordinates[i][3];
+		
+		var cond1 = ((leftB>=aLeft&&rightB<=aRight)||(leftB<=aLeft&&rightB>=aLeft)||(leftB<=aRight&&rightB>=aRight));
+		var cond2 = ((topB<=aTop&&bottomB>=aBottom)||(topB>=aBottom&&bottomB<=aBottom)||(topB>=aTop&&bottomB<=aBottom));
         
-		if (((leftB>=aLeft&&rightB<=aRight)||(leftB<=aLeft&&rightB>=aLeft)||(leftB<=aRight&&rightB>=aRight))&&
-            ((topB<=aTop&&bottomB>=aBottom)||(topB>=aBottom&&bottomB<=aBottom)||(topB>=aTop&&bottomB<=aBottom))){
+		if (cond1 && cond2){
 
-            
-			cannonBall.style.display='none';
-        	isCannonBallMoving=0;
-        	clearInterval(cannonBallTimer);
+			removeCannonBall();
         	elem=document.getElementById('alien '+alienCoordinates[i][4]+' '+alienCoordinates[i][5]);
         	elem.parentNode.removeChild(elem);
-            game.numberOfAliens--;
             //ALIEN DEFEATED
-            if (game.numberOfAliens){
+            if (game.alienContainers.length != 0){
             	getAliens();
                 EmptyRow();
                 EmptyColumn(game.lastCol, 1);
@@ -143,18 +140,22 @@ function checkForCollision(leftB, rightB, topB, bottomB){
 	}
 }
 
+// aliens moving down
 function moveAliensDown(){
     offset=10;
     currentTop=parseInt(document.getElementById("mainContainer").style.top);
     document.getElementById("mainContainer").style.top=currentTop+offset+'px';
     getAliens();
-    checkForBottom();
+    var defeat = checkBottomReached();
+	if (defeat) {
+		endGame();
+	}
 
 }
 
 //moving aliens either left or right
 function moveAliens(){  
-    checkForSide();
+    changeAliensDirectionIfNeeded();
     sideOffset=7;
     currentLeft=parseInt(document.getElementById('mainContainer').style.left);
     document.getElementById('mainContainer').style.left=currentLeft+sideOffset*horDir+'px';
@@ -171,9 +172,9 @@ function EmptyRow(){
         }
     }
     if(isEmpty){
-            elem=document.getElementById('row'+i);
-            elem.parentNode.removeChild(elem);
-            game.lastRow--;
+        elem=document.getElementById('row'+i);
+        elem.parentNode.removeChild(elem);
+        game.lastRow--;
     }
 }
 
@@ -189,11 +190,9 @@ function EmptyColumn(j, pos){
             for (var i=0; i<=game.lastRow; i++){
                 elem=document.getElementById('cont '+i+' '+j);
                 elem.parentNode.removeChild(elem); 
-                
-                }
+            }
             if (pos){
-             game.lastCol--; 
-
+				game.lastCol--; 
             }
             else{
                 game.firstCol++;
@@ -204,30 +203,40 @@ function EmptyColumn(j, pos){
     }
 }
 
-//checking if the last row of aliens riched the bottom of the gamefield
-function checkForBottom(){
-    if(document.getElementById('mainContainer').getBoundingClientRect().bottom>=document.getElementById('cannon').getBoundingClientRect().top){
-        clearInterval(game.moveDownTimer);
-        clearInterval(game.moveToTheSideTimer);
-        clearInterval(game.bulletTimer);
-        clearInterval(game.bulletCreateTimer);
-        clearInterval(game.bulletMoveTimer);
-        //GAMEOVER
-    }
+	//////////////////////////////////////
+	//////////////////////////////////////
+
+// cleanup and destroy at the end of the game
+function endGame() {
+    clearInterval(game.moveDownTimer);
+    clearInterval(game.moveToTheSideTimer);
+    clearInterval(game.bulletCreateTimer);
+    clearInterval(game.bulletMoveTimer);
 }
 
-//checking if the aliens riched either left or right border of the gamefield
-function checkForSide(){
-    
-    if((document.getElementById('mainContainer').getBoundingClientRect().left
-        <=document.getElementById('game_field').getBoundingClientRect().left-1)||
-        (document.getElementById('mainContainer').getBoundingClientRect().right+1
-        >=document.getElementById('game_field').getBoundingClientRect().right)){
+//checking if the last row of aliens reached the bottom of the gamefield
+function checkBottomReached(){
+	var aliens_bottom = document.getElementById('mainContainer').getBoundingClientRect().bottom;
+	var cannon_top = document.getElementById('cannon').getBoundingClientRect().top;
+    return aliens_bottom >= cannon_top;
+}
+
+
+// checking if the aliens reached either left or right border of the gamefield (and if reached, change direction)
+function changeAliensDirectionIfNeeded(){
+    var al_left = document.getElementById('mainContainer').getBoundingClientRect().left;
+    var game_left = document.getElementById('game_field').getBoundingClientRect().left;
+	
+    var al_right = document.getElementById('mainContainer').getBoundingClientRect().right;
+    var game_right = document.getElementById('game_field').getBoundingClientRect().right;
+	
+    if( (al_left <= game_left - 1) || (al_right + 1 >= game_right) ){
         horDir=horDir*(-1);
     }
 }
 
-
+	//////////////////////////////////////
+	//////////////////////////////////////
 
 //creating a bullet from a random alien at random time intervals
 function createBullet(){
@@ -240,14 +249,13 @@ function createBullet(){
         raLeft=alienCoordinates[randAlien][0]-fieldLeft+15;
         bullet=document.createElement('IMG');
         bullet.src='images/bullet.png';
-        bullet.id='bullet'+bulletCounter;
+        bullet.id='bullet'+bulletList.length;
         bullet.style.position='absolute';
         bullet.style.width='10px';
         bullet.style.top=raBottom+11+'px';
         bullet.style.left=raLeft+'px';
         document.getElementById('game_field').appendChild(bullet);
         bulletList.push(bullet);
-        bulletCounter++;
     }
 
 }

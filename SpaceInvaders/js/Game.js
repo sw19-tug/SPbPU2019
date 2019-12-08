@@ -47,7 +47,7 @@ class Game {
         this.firstCol=0;
         this.lastCol=10;
         this.lastRow=4;
-        this.numberOfAliens=this.cols*this.rows;
+        //this.numberOfAliens=this.cols*this.rows;
     	this.alienContainers=[];
     	this.mainContainer=document.createElement('DIV');
     	this.mainContainer.style.position="absolute";
