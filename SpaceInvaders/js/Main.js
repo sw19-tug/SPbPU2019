@@ -123,16 +123,23 @@ function checkForCollision(leftB, rightB, topB, bottomB){
 		if (cond1 && cond2){
 
 			removeCannonBall();
+            //ALIEN DEFEATED
         	elem=document.getElementById('alien '+alienCoordinates[i][4]+' '+alienCoordinates[i][5]);
         	elem.parentNode.removeChild(elem);
-            //ALIEN DEFEATED
-            if (game.alienContainers.length != 0){
-            	getAliens();
-                isEmpty();
+            game.numberOfAliens--;
+            if(game.numberOfAliens==0){
+                //NO ALIENS LEFT
+                endGame();
             }
             else{
-                //NO ALIENS LEFT
+            
+                if (game.alienContainers.length != 0){
+            	    getAliens();
+                    isEmpty();
+
+                }
             }
+            
 		}
 	}
 }
@@ -232,6 +239,7 @@ function endGame() {
     clearInterval(game.moveToTheSideTimer);
     clearInterval(game.bulletCreateTimer);
     clearInterval(game.bulletMoveTimer);
+    clearInterval(cannonBallTimer);
 }
 
 //checking if the last row of aliens reached the bottom of the gamefield
@@ -247,10 +255,10 @@ function changeAliensDirectionIfNeeded(){
     var al_left = document.getElementById('mainContainer').getBoundingClientRect().left;
     var game_left = document.getElementById('game_field').getBoundingClientRect().left;
 	
-    var al_right = al_left+document.getElementById('mainContainer').clientWidth;
-    var game_right = game_left+document.getElementById('game_field').clientWidth;
+    var al_right = al_left+document.getElementById('mainContainer').offsetWidth;
+    var game_right = game_left+document.getElementById('game_field').offsetWidth;
 	
-    if( (al_left <= game_left - 1) || (al_right + 1 >= game_right) ){
+    if( (al_left <= game_left - 2) || (al_right + 2 >= game_right) ){
         horDir=horDir*(-1);
     }
 }
