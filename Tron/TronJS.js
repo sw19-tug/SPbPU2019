@@ -40,6 +40,8 @@ if (localStorage.getItem("arenaSmallSize") === "T") {
     canvas.style.width = "510px";
     canvas.style.height = "300px"
 }
+if (localStorage.getItem("borderColor") !== null)
+    canvas.style.borderColor=localStorage.getItem("borderColor");
 
 function setKey(key, player, up, right, down, left) {
     switch (key) {

@@ -53,6 +53,14 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <h3>Arena Border Color</h3>
+                    <div class="col">
+                        <input type="color" id="border" name="head" value="#061c47" onchange="setColor(this)"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -67,6 +75,8 @@
             document.getElementById("player1").value = localStorage.getItem("player1color");
         if (localStorage.getItem("player2color") !== null)
             document.getElementById("player2").value = localStorage.getItem("player2color");
+        if (localStorage.getItem("borderColor") !== null)
+            document.getElementById("border").value = localStorage.getItem("borderColor");
         if(localStorage.getItem("arenaSmallSize")==="T")
           document.getElementById("myonoffswitch").checked=false;
         document.getElementById("menu").style.display = "none";
@@ -81,8 +91,10 @@
     function setColor(t) {
         if (t.id === "player1")
             localStorage.setItem("player1color", t.value);
-        else
+        else if(t.id==="player2")
             localStorage.setItem("player2color", t.value);
+        else
+            localStorage.setItem("borderColor", t.value);
     }
     function changeArenaSize(t){
       if(t.checked)
