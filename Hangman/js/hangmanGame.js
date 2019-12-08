@@ -34,8 +34,9 @@ function drawHangman(){
 		}
 		else {
 			man = document.querySelector(".man")
-			hangmanParts = Array.from(man.children)
-			console.log(hangmanParts)
+            hangmanParts = Array.from(man.children)
+			hangmanParts[0].classList.remove("invisible");
+			hangmanParts.shift();
 		}
 	}
 }
