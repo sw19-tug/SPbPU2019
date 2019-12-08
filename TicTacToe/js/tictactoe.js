@@ -29,7 +29,15 @@ function singlePlayer() {
 }
 
 function multiPlayer() {
-    startGame();
+  info = document.querySelectorAll(".player-info")
+  info.forEach(element => {
+    element.classList.remove("invisible");
+  });
+  sign_1=document.getElementById("sign-1");
+  sign_1.innerHTML="O";
+  sign_2=document.getElementById("sign-2");
+  sign_2.innerHTML="X";
+  startGame();
 }
 
 function startGame() {
