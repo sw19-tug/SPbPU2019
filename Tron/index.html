@@ -1,73 +1,95 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Tron</title>
-  <link rel="stylesheet" href="TronStyle.css">
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/style.css">
-  <!--<script src="js/bootstrap.min.js"></script>-->
+    <meta charset="utf-8">
+    <title>Tron</title>
+    <link rel="stylesheet" href="TronStyle.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!--<script src="js/bootstrap.min.js"></script>-->
 </head>
 
 <body>
-  <div class="grid"></div>
-  <div id="games" class="row row justify-content-center menu">
+<div class="grid"></div>
+<div id="games" class="row row justify-content-center menu">
     <div class="start-up-menu-wrapper">
-      <div class="start-up-menu-content neon-wrapper" id="menu">
-        <h2 class="start-up-menu-title">Tron</h2>
-        <div class="row">
-          <button type="button" class="btn btn-outline-dark btn-lg" onclick="goToGameField()">Play game</button>
-
+        <div class="start-up-menu-content neon-wrapper" id="menu">
+            <h2 class="start-up-menu-title">Tron</h2>
+            <div class="row">
+                <button type="button" class="btn btn-outline-dark btn-lg" onclick="goToGameField()"
+                        style="margin-bottom: 20px;">Play game
+                </button>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-outline-dark btn-lg" onclick="goToOptions()">Configure</button>
+            </div>
         </div>
-        <div class="row">
-         <button type="button" class="btn btn-outline-dark btn-lg"  onclick="goToOptions()">Configure</button>
-       </div>
-     </div>
-     <div class="option-menu-content neon-wrapper container" id="options" style="display: none">
-      <button class="btn btn-outline-dark btn-lg close" aria-label="Close" onclick="closeOptions()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <div class="row">
-        <div class="col-6 input-group">
-          <select class="custom-select">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+        <div class="option-menu-content neon-wrapper container" id="options" style="display: none">
+            <button class="btn btn-outline-dark btn-lg" onclick="closeOptions()">Return to Main Menu</button>
+            <div class="row">
+                <div class="col-6">
+                    <h3>Player 1</h3>
+                    <div class="col">
+                        <input type="color" id="player1" name="head" value="#FF5050" onchange="setColor(this)"/>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h3>Player 2</h3>
+                    <div class="col">
+                        <input type="color" id="player2" name="head" value="#75A4FF" onchange="setColor(this)"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3>Arena Size</h3>
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onchange="changeArenaSize(this)"
+                               checked>
+                        <label class="onoffswitch-label" for="myonoffswitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-6 ">
-          <select class="btn btn-outline-dark btn-lg">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
-</div>
-</div>
-
-
 
 <script>
-  function goToGameField() {
-    document.location.href = "gameField.html";
-  }
+    function goToGameField() {
+        document.location.href = "gameField.html";
+    }
 
-  function goToOptions() {
-    document.getElementById("menu").style.display = "none";
-    document.getElementById("options").style.display = "flex";
+    function goToOptions() {
+        if (localStorage.getItem("player1color") !== null)
+            document.getElementById("player1").value = localStorage.getItem("player1color");
+        if (localStorage.getItem("player2color") !== null)
+            document.getElementById("player2").value = localStorage.getItem("player2color");
+        if(localStorage.getItem("arenaSmallSize")==="T")
+          document.getElementById("myonoffswitch").checked=false;
+        document.getElementById("menu").style.display = "none";
+        document.getElementById("options").style.display = "flex";
+    }
 
-  }
+    function closeOptions() {
+        document.getElementById("menu").style.display = "flex";
+        document.getElementById("options").style.display = "none";
+    }
 
-  function closeOptions() {
-    document.getElementById("menu").style.display = "flex";
-    document.getElementById("options").style.display = "none";
-  }
+    function setColor(t) {
+        if (t.id === "player1")
+            localStorage.setItem("player1color", t.value);
+        else
+            localStorage.setItem("player2color", t.value);
+    }
+    function changeArenaSize(t){
+      if(t.checked)
+          localStorage.removeItem("arenaSmallSize");
+      else
+        localStorage.setItem("arenaSmallSize","T");
+    }
 </script>
 </body>
 </html>

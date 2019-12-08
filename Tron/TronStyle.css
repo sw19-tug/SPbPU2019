@@ -49,13 +49,30 @@ body{
     background: #1b1e21;
 }
 .option-menu-content {
-    width: 600px;
-    height: 600px;
+    width: 400px!important;
+    height: 400px!important;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 5px;
-    background: #1b1e21;  
+    background: #1b1e21;
+    text-align: center;
+    color:#FFFFFF;
+}
+
+.option-menu-content button {
+    margin-top: 40px;
+}
+.option-menu-content input{
+    border-radius:.3rem;
+}
+
+.option-menu-content .row{
+    margin-top: 20px;
+    width:100%
+}
+.option-menu-content div{
+    margin-top: 10px;
 }
 
 .start-up-menu-title {
@@ -74,7 +91,7 @@ body{
             inset 0 0 0.5vw  0.2vw #fff7f7;
     border-radius: 1.5rem;
 }
-.neon-wrapper button{
+.neon-wrapper button, .neon-wrapper input, .neon-wrapper .onoffswitch-label{
     box-shadow:
             0 0 0.1vw  0.4vw #1b1e21,
             0 0 0.4vw  0.6vw #008a72,
@@ -84,7 +101,9 @@ body{
             inset 0 0 0.5vw  0.2vw #1b1e21;
     color:#FFFFFF;
 }
-
+.neon-wrapper input{
+    width:40px
+}
 .field{
     margin:auto;
     align-items: center;
@@ -104,4 +123,52 @@ body{
 .fieldWrapper{
     height: 100%;
     width: 100%;
+}
+
+.onoffswitch {
+    margin-left: auto; margin-right: auto;
+    position: relative; width: 96px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #1B1E21; border-radius: 27px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 36px; padding: 0; line-height: 36px;
+    font-size: 16px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Big";
+    padding-left: 10px;
+    color: #FFFFFF;
+    text-align: left;
+}
+.onoffswitch-inner:after {
+    content: "Small";
+    padding-right: 10px;
+    color: #FFFFFF;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 38px;
+    background: #1B1E21;
+    position: absolute; top: 0; bottom: 0;
+    right: 56px;
+    border: 2px solid #26ffef; border-radius: 27px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0;
 }

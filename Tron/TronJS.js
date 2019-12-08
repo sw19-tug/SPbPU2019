@@ -24,9 +24,22 @@ class Player {
 }
 
 Player.allInstances = [];
+let color1, color2;
+if (localStorage.getItem("player1color") !== null)
+    color1 = localStorage.getItem("player1color");
+else
+    color1 = '#FF5050';
+if (localStorage.getItem("player2color") !== null)
+    color2 = localStorage.getItem("player2color");
+else
+    color2 = '#75A4FF';
+let p1 = new Player(unit * 6, unit * 6, color1);
+let p2 = new Player(unit * 44, unit * 28, color2);
 
-let p1 = new Player(unit * 6, unit * 6, '#FF5050');
-let p2 = new Player(unit * 44, unit * 28, '#75A4FF');
+if (localStorage.getItem("arenaSmallSize") === "T") {
+    canvas.style.width = "510px";
+    canvas.style.height = "300px"
+}
 
 function setKey(key, player, up, right, down, left) {
     switch (key) {
@@ -67,6 +80,7 @@ function handleKeyPress(event) {
     setKey(key, p1, 'w', 'd', 's', 'a');
     setKey(key, p2, 'arrowup', 'arrowright', 'arrowdown', 'arrowleft');
 }
+
 document.addEventListener('keydown', handleKeyPress);
 
 function getPlayableCells(canvas, unit) {
@@ -78,6 +92,7 @@ function getPlayableCells(canvas, unit) {
     }
     return playableCells;
 }
+
 let playableCells = getPlayableCells(canvas, unit);
 
 function drawBackground() {
@@ -96,6 +111,7 @@ function drawBackground() {
     }
     context.lineWidth = 0;
 }
+
 drawBackground();
 
 function drawStartingPositions(players) {
@@ -106,6 +122,7 @@ function drawStartingPositions(players) {
         context.strokeRect(p.x, p.y, unit, unit);
     });
 }
+
 drawStartingPositions(Player.allInstances);
 
 let outcome, winnerColor, playerCount = Player.allInstances.length;
