@@ -32,6 +32,8 @@ class Game {
        
         this.bulletCreateTimer=setInterval("createBullet()", 200);
         this.bulletMoveTimer=setInterval("moveAllBullets()", 200);
+
+        this.lives=10;
     }
 
 	stop() {
