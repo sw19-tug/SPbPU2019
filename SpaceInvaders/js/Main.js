@@ -250,7 +250,7 @@ function changeAliensDirectionIfNeeded(){
     var al_right = al_left+document.getElementById('mainContainer').clientWidth;
     var game_right = game_left+document.getElementById('game_field').clientWidth;
 	
-    if( (al_left <= game_left - 1) || (al_right + 10 >= game_right) ){
+    if( (al_left <= game_left - 1) || (al_right + 1 >= game_right) ){
         horDir=horDir*(-1);
     }
 }
@@ -262,6 +262,7 @@ function changeAliensDirectionIfNeeded(){
 function createBullet(){
     randTime=Math.floor(Math.random()*100);
     if (randTime%10==0){
+        getAliens();
         fieldLeft=document.getElementById("game_field").getBoundingClientRect().left;
         fieldTop=document.getElementById("game_field").getBoundingClientRect().top;
         randAlien=Math.floor(Math.random()*alienCoordinates.length);
