@@ -11,9 +11,11 @@ body{
     width:100%;
     height:100%;
     display:flex;
-    justify-content:center;
+    flex-direction: row;
+    justify-content:space-around;
     align-items:center;
 }
+
 
 #area {
     width: 300px;
@@ -123,5 +125,20 @@ p {
 }
 
 #modal-sign {
+    display: none;
+}
+
+.player-info{
+    text-align: center;
+    font-family: 'Futura PT Book';
+    color: #786B6B;
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.invisible{
     display: none;
 }
