@@ -129,6 +129,7 @@ function checkForCollision(leftB, rightB, topB, bottomB){
         	elem=document.getElementById('alien '+alienCoordinates[i][4]+' '+alienCoordinates[i][5]);
         	elem.parentNode.removeChild(elem);
             game.numberOfAliens--;
+            //ALIEN DEFEATED
             if (game.numberOfAliens){
             	getAliens();
                 EmptyRow();
@@ -136,7 +137,7 @@ function checkForCollision(leftB, rightB, topB, bottomB){
                 EmptyColumn(game.firstCol, 0);
             }
             else{
-                victory();
+                //NO ALIENS LEFT
             }
 		}
 	}
@@ -209,6 +210,9 @@ function checkForBottom(){
         clearInterval(game.moveDownTimer);
         clearInterval(game.moveToTheSideTimer);
         clearInterval(game.bulletTimer);
+        clearInterval(game.bulletCreateTimer);
+        clearInterval(game.bulletMoveTimer);
+        //GAMEOVER
     }
 }
 
@@ -223,13 +227,6 @@ function checkForSide(){
     }
 }
 
-function victory(){
-    //what to do if all of the aliens are defeated
-}
-
-function bulletReachedCannon(){
-    console.log('Bullet reached cannon');
-}
 
 
 //creating a bullet from a random alien at random time intervals
@@ -258,13 +255,38 @@ function createBullet(){
 function moveAllBullets(){
     bulletOffset=10;
     for (var i=0; i<bulletList.length; i++){        
-        currentBulletTop=parseInt(bulletList[i].style.top);
-
+        cannonObj=document.getElementById("cannonPic");
+        cannonPos=cannonObj.getBoundingClientRect();
+        cannonLeft=cannonPos.left;
+        cannonTop=cannonPos.bottom-cannonObj.clientHeight;
+        cannonRight=cannonLeft+cannonObj.clientWidth;
+        currentBulletTop=parseInt(bulletList[i].style.top);  
         bulletList[i].style.top=currentBulletTop+bulletOffset+'px';
-        if(bulletList[i].getBoundingClientRect().bottom>=document.getElementById("cannon").getBoundingClientRect().top+
-            document.getElementById("cannon").clientHeight){
+        bulletBottom=bulletList[i].getBoundingClientRect().bottom;
+        bulletLeft=bulletList[i].getBoundingClientRect().left;
+        bulletRight=bulletLeft+bulletList[i].clientWidth;
+        if(bulletBottom>=cannonTop&&((bulletLeft>=cannonLeft&&bulletRight<=cannonRight)||
+            (bulletRight>=cannonLeft&&bulletRight<=cannonRight)||(bulletLeft>=cannonLeft&&bulletLeft<=cannonRight))){
             bulletList[i].parentNode.removeChild(bulletList[i]);
+            document.getElementById("cannonPic").src='images/cannon gray.png';
+            changePicTimer=setTimeout("document.getElementById('cannonPic').src='images/cannon.png'", 175);
+            game.lives--;
+            console.log("minus one live, remaining lives: "+game.lives);
         }
+        else{
+            if(bulletBottom>=document.getElementById("cannon").getBoundingClientRect().top+
+                document.getElementById("cannon").clientHeight){
+                bulletList[i].parentNode.removeChild(bulletList[i]);
+            }  
+        }
+        
     }
 }
+
+
+
+
+
+
+
 
