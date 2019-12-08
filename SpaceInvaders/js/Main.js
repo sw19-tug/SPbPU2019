@@ -12,7 +12,6 @@ let alienCoordinates=[];//list of coordinates of the lowest aliens
 let horDir=1;//direction for horizontal movement
 let bulletList=[];
 
-
 //choose action depending on the pressed key
 function logKey(e) {
 	pressedKey=`${e.code}`;
@@ -129,9 +128,7 @@ function checkForCollision(leftB, rightB, topB, bottomB){
             //ALIEN DEFEATED
             if (game.alienContainers.length != 0){
             	getAliens();
-                EmptyRow();
-                EmptyColumn(game.lastCol, 1);
-                EmptyColumn(game.firstCol, 0);
+                isEmpty();
             }
             else{
                 //NO ALIENS LEFT
@@ -154,7 +151,7 @@ function moveAliensDown(){
 }
 
 //moving aliens either left or right
-function moveAliens(){  
+function moveAliensSideways(){  
     changeAliensDirectionIfNeeded();
     sideOffset=7;
     currentLeft=parseInt(document.getElementById('mainContainer').style.left);
@@ -162,45 +159,68 @@ function moveAliens(){
     getAliens();
 }
 
-//checking if the last row is empty and removing containers if it is
-function EmptyRow(){
-    i=game.lastRow;
-    isEmpty=1;
-    for (var j=0; j<=game.lastCol; j++){
-        if (game.alienContainers[i][j].hasChildNodes()){
-            isEmpty=0;
+
+
+//checking if either the first column, the last column or the last row are empty
+function isEmpty(){
+    lastColumnIsEmpty=1;
+    firstColumnIsEmpty=1;
+    lastRowIsEmpty=1;
+    //checking if the first or the last columns are empty
+    for (var i=0; i<=game.lastRow; i++){
+        if (game.alienContainers[i][game.firstCol].hasChildNodes()){            
+            firstColumnIsEmpty=0;
+        }        
+        if (game.alienContainers[i][game.lastCol].hasChildNodes()){            
+            lastColumnIsEmpty=0;
+        }
+
+    }
+
+    for (var j=game.firstCol; j<=game.lastCol; j++){
+        if (game.alienContainers[game.lastRow][j].hasChildNodes()){
+            lastRowIsEmpty=0;
         }
     }
-    if(isEmpty){
-        elem=document.getElementById('row'+i);
-        elem.parentNode.removeChild(elem);
-        game.lastRow--;
+    
+    if(firstColumnIsEmpty){
+        clearColumn(game.firstCol);
+        game.firstCol++;
+        isEmpty();
+        return;
+    }
+    if(lastColumnIsEmpty){
+        clearColumn(game.lastCol);
+        game.lastCol--;
+        isEmpty();
+        return;
+    }
+    if(lastRowIsEmpty){
+        clearLastRow();
+        isEmpty();
+        return;
     }
 }
 
-//checking if the first or the last columns are empty and removing if they are
-function EmptyColumn(j, pos){
-    isEmpty=1;
+//removing alien containers from a column
+function clearColumn(index){
     for (var i=0; i<=game.lastRow; i++){
-        if (game.alienContainers[i][j].hasChildNodes()){
-            isEmpty=0;
-        }
+        elem=document.getElementById('cont '+i+' '+index);
+        elem.parentNode.removeChild(elem); 
     }
-    if(isEmpty){
-            for (var i=0; i<=game.lastRow; i++){
-                elem=document.getElementById('cont '+i+' '+j);
-                elem.parentNode.removeChild(elem); 
-            }
-            if (pos){
-				game.lastCol--; 
-            }
-            else{
-                game.firstCol++;
-                colWidth=document.getElementById('cont '+game.lastRow+' '+game.firstCol).offsetWidth;
-                left=parseInt(document.getElementById('mainContainer').style.left);
-                document.getElementById('mainContainer').style.left=left+colWidth+'px';        
-            }
+    if (index==game.firstCol){        
+        left=parseInt(document.getElementById('mainContainer').style.left);
+        document.getElementById('mainContainer').style.left=left+60+'px'; 
     }
+}
+
+//removing alien containers from the last row
+function clearLastRow(){
+    for (j=game.firstCol; j<=game.lastCol; j++){
+        elem=document.getElementById('cont '+game.lastRow+' '+j);
+        elem.parentNode.removeChild(elem); 
+    }
+    game.lastRow--;
 }
 
 	//////////////////////////////////////
@@ -227,10 +247,10 @@ function changeAliensDirectionIfNeeded(){
     var al_left = document.getElementById('mainContainer').getBoundingClientRect().left;
     var game_left = document.getElementById('game_field').getBoundingClientRect().left;
 	
-    var al_right = document.getElementById('mainContainer').getBoundingClientRect().right;
-    var game_right = document.getElementById('game_field').getBoundingClientRect().right;
+    var al_right = al_left+document.getElementById('mainContainer').clientWidth;
+    var game_right = game_left+document.getElementById('game_field').clientWidth;
 	
-    if( (al_left <= game_left - 1) || (al_right + 1 >= game_right) ){
+    if( (al_left <= game_left - 1) || (al_right + 10 >= game_right) ){
         horDir=horDir*(-1);
     }
 }

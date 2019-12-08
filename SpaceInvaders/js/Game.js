@@ -28,7 +28,7 @@ class Game {
         document.onkeydown = logKey;
         this.setAliens();
         this.moveDownTimer=setInterval("moveAliensDown()", 6000);
-        this.moveToTheSideTimer=setInterval("moveAliens()", 700);
+        this.moveToTheSideTimer=setInterval("moveAliensSideways()", 700);
        
         this.bulletCreateTimer=setInterval("createBullet()", 200);
         this.bulletMoveTimer=setInterval("moveAllBullets()", 200);
