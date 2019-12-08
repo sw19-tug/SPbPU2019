@@ -31,32 +31,42 @@
                 <h2 class="modal-title">Choose sign</h2>
             </div>
             <div class="but">
-                <button id = "X">X</button>
-                <button id = "O">O</button>
+                <button id="X">X</button>
+                <button id="O">O</button>
             </div>
+        </div>
+    </div>
+    <div id="result" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Game result</h2>
+            </div>
+            <p><img id="image" width="150" height="150" /></p>
+            <p id="word"></p>
+            <p><button class="but-result" onClick="window.location.reload();">Play again</button></p>
         </div>
     </div>
     <div id="turn"></div>
     <div class="area-wrapper">
-            <div class="player-info invisible">
-                <span>Player 1</span>
-                <span id="sign-1"></span>
-            </div>
-            <div id="area">
-                <div id="1" class="cell"></div>
-                <div id="2" class="cell"></div>
-                <div id="3" class="cell"></div>
-                <div id="4" class="cell"></div>
-                <div id="5" class="cell"></div>
-                <div id="6" class="cell"></div>
-                <div id="7" class="cell"></div>
-                <div id="8" class="cell"></div>
-                <div id="9" class="cell"></div>
-            </div>
-            <div class="player-info invisible">
-                <span>Player 2</span>
-                <span id="sign-2"></span>
-            </div>
+        <div class="player-info invisible">
+            <span>Player 1</span>
+            <span id="sign-1"></span>
+        </div>
+        <div id="area">
+            <div id="1" class="cell"></div>
+            <div id="2" class="cell"></div>
+            <div id="3" class="cell"></div>
+            <div id="4" class="cell"></div>
+            <div id="5" class="cell"></div>
+            <div id="6" class="cell"></div>
+            <div id="7" class="cell"></div>
+            <div id="8" class="cell"></div>
+            <div id="9" class="cell"></div>
+        </div>
+        <div class="player-info invisible">
+            <span>Player 2</span>
+            <span id="sign-2"></span>
+        </div>
     </div>
 </body>
 </html>
