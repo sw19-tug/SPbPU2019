@@ -237,6 +237,7 @@ function endGame() {
     clearInterval(game.bulletCreateTimer);
     clearInterval(game.bulletMoveTimer);
     clearInterval(cannonBallTimer);
+    document.onkeydown = false;
 }
 
 //checking if the last row of aliens reached the bottom of the gamefield
@@ -305,11 +306,12 @@ function moveAllBullets() {
             document.getElementById("cannonPic").src = 'images/cannon gray.png';
             changePicTimer = setTimeout("document.getElementById('cannonPic').src='images/cannon.png'", 175);
             game.lives--;
-            if (game.lives != -1) {
+            if (game.lives >= 1) {
                 document.getElementById('countLives').innerHTML = game.lives;
             }
             else {
-                console.log("game over: " + game.lives);
+                document.getElementById('countLives').innerHTML = game.lives;
+                endGame();
             }
             console.log("minus one live, remaining lives: " + game.lives);
         } else {
