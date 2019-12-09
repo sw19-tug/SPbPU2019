@@ -12,7 +12,7 @@ class Game {
     start() {
 
         document.getElementById('header').insertAdjacentHTML('beforeend', `
-        <font style=" margin-left: 710px;"><img src="images/live.png" width="40" height="20" style="margin-top: -7px;"> <font style="color: #868a8d;" id="countLives" class="header-font">3</font> </font>
+        <font style=" margin-left: 670px;"><div style=" display: inline-block; width:50px; color: #868a8d; margin-right: 20px;" id="countPoints" class="header-font">000</div><img src="images/live.png" width="30" height="20" style="margin-top: -7px;"> <font style="color: #868a8d;" id="countLives" class="header-font">3</font> </font>
         </div>`);
         //set the position of the cannon
         this.cannonPosition = document.getElementById("main_menu").clientWidth / 2;
