@@ -148,8 +148,7 @@ function moveAliensDown() {
     currentTop = parseInt(document.getElementById("mainContainer").style.top);
     document.getElementById("mainContainer").style.top = currentTop + offset + 'px';
     getAliens();
-    var defeat = checkBottomReached();
-    if (defeat) {
+    if (checkBottomReached()) {
         endGame();
     }
 
