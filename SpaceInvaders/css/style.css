@@ -42,6 +42,18 @@ body{
         display: none;
 
 }
+#end_screen{
+        height: 95%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        display: none;
+}
+#end_label{
+        margin: 20px;
+}
 .menu_button{
 	    height: 10%;
         width: 130px;
