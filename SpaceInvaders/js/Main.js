@@ -12,18 +12,6 @@ let alienCoordinates = []; //list of coordinates of the lowest aliens
 let horDir = 1; //direction for horizontal movement
 let bulletList = [];
 
-function livesField() {
-    var elem = document.getElementById('header');
-    elem.insertAdjacentHTML('beforeend', `
-        <font style="color: white; margin-left: 550px;"> LIVES </font> 
-        <img src="images/cannon.png" width="50" height="20" id="l1"> 
-        <img src="images/cannon.png" width="50" height="20" id="l2"> 
-        <img src="images/cannon.png" width="50" height="20" id="l3 ">
-    </div>`);
-}
-
-
-
 //choose action depending on the pressed key
 function logKey(e) {
     pressedKey = `${e.code}`;
@@ -299,6 +287,11 @@ function createBullet() {
 
 }
 
+function changeLives(e) {
+    document.getElementById(e).style.display = 'none';
+    document.getElementById('countLives').innerHTML = e;
+}
+
 function moveAllBullets() {
     bulletOffset = 10;
     for (var i = 0; i < bulletList.length; i++) {
@@ -318,6 +311,12 @@ function moveAllBullets() {
             document.getElementById("cannonPic").src = 'images/cannon gray.png';
             changePicTimer = setTimeout("document.getElementById('cannonPic').src='images/cannon.png'", 175);
             game.lives--;
+            if (game.lives != -1) {
+                changeLives(game.lives);
+            }
+            else {
+                console.log("game over: " + game.lives);
+            }
             console.log("minus one live, remaining lives: " + game.lives);
         } else {
             if (bulletBottom >= document.getElementById("cannon").getBoundingClientRect().top +
