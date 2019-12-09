@@ -48,14 +48,16 @@ body{
 	    background-color: #151517;
         border: 2px solid #868a8d;
 	    outline: none;
-        position: relative;
-        top: 40%;
         font-family: 'Roboto';
         font-size: 20px;
         color: #90e815;
 }
 .menu_button:hover{
         border: 2px solid #90e815;
+}
+#start_button{
+        position: relative;
+        top: 40%;
 }
 #cannon{
         position: absolute;
