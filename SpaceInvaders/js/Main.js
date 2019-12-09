@@ -237,6 +237,7 @@ function endGame() {
     clearInterval(game.bulletCreateTimer);
     clearInterval(game.bulletMoveTimer);
     clearInterval(cannonBallTimer);
+    document.onkeydown = false;
 }
 
 //checking if the last row of aliens reached the bottom of the gamefield
