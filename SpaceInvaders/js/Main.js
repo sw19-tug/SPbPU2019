@@ -114,6 +114,7 @@ function alienDefeated(i) {
     elem.parentNode.removeChild(elem);
     game.numberOfAliens--;
     game.points += 10;
+    document.getElementById('countPoints').innerHTML = game.points < 100 ? '0' + game.points : game.points;
     console.log('my points: ' + game.points);
 }
 
