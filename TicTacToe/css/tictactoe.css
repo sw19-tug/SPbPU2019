@@ -122,6 +122,9 @@ button {
 
 p {
     color: rgb(120, 107, 107, 0.8);
+    text-align: center;
+    margin-top: 0;
+    font-size: 24px;
 }
 
 #modal-sign {
@@ -142,3 +145,21 @@ p {
 .invisible{
     display: none;
 }
+
+#modal-sign {
+    display: none;
+}
+
+#result {
+    display: none;
+}
+
+#word {
+    text-align: center;
+    font-family: 'Futura PT Book';
+    color: #786B6B;
+    font-size: 30px;
+    margin-top:0;
+    margin-bottom:0;
+}
+

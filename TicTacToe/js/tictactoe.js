@@ -83,12 +83,16 @@ function currentStep() {
       cells[i].removeEventListener("click", currentStep);
     }       
     //show resulte here
-    console.log("Win"+ currentPlayer);
-    return
+        document.getElementById('result').style.display = 'inline';
+        document.getElementById('image').src = "img/image2.png";
+        document.getElementById("word").innerHTML += "Win:Player " + currentPlayer;
+        return
     }
   if (stepCount == 9) {
-    console.log("Draw");
-    return
+      document.getElementById('result').style.display = 'inline';
+      document.getElementById('image').src = "img/image3.png";
+      document.getElementById("word").innerHTML += "Draw";
+      return
   }
 }
 
