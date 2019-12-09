@@ -42,7 +42,7 @@ body{
         display: none;
 
 }
-.mmb{
+.menu_button{
 	    height: 10%;
         width: 130px;
 	    background-color: #151517;
@@ -54,7 +54,7 @@ body{
         font-size: 20px;
         color: #90e815;
 }
-.mmb:hover{
+.menu_button:hover{
         border: 2px solid #90e815;
 }
 #cannon{
