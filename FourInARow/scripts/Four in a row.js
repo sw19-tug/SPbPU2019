@@ -53,24 +53,8 @@
         setTimeout(fillCell, interval, cells[column][i - 1]);
     }
 
-    function currentPlayer() {
-
-        if (flagPlayer) {
-            firstCircle.style.transform = 'scale(1.2, 1.2)';
-            secondCircle.style.transform = '';
-        }
-        else {
-            secondCircle.style.transform = 'scale(1.2, 1.2)';
-            firstCircle.style.transform = '';
-        }
-
-        const pText = document.querySelector(".playerMove-text");
-        pText.innerHTML = `${playerColoredNumeral()} plays now!`;
-    }
-
     function fillCell(cell) {
         cell.style.backgroundColor = player();
-        cell.player1 = flagPlayer;
         cell.filled = true;
         cells[cell.column].occupiedCells++;
         filledCellsNum++;
@@ -90,18 +74,29 @@
             return;
         }
 
-        winRow.forEach(winCell => winCell.classList.add('win-cell'));
+        winRow.forEach(winCell => winCell.style.transform = 'scale(1.2, 1.2)');
         endGame(`${playerColoredNumeral()} player won! Congratulations!`);
     }
 
     function nextPlayer() {
         flagPlayer = !flagPlayer;
-        currentPlayer();
+        currentPlayerIndicator();
         unlocked = true;
     }
 
+    function currentPlayerIndicator() {
+        firstTransform = firstCircle.style.transform;
+        secondTransform = secondCircle.style.transform;
+        [firstTransform, secondTransform] = [secondTransform, firstTransform];
+        const pText = document.getElementById("playerMove-text");
+        pText.innerHTML = `${playerColoredNumeral()} plays now!`;
+    }
+
     function endGame(htmlEndMessage) {
-        console.log(htmlEndMessage);
+        endModal = document.getElementById("endModal");
+        mBody = endModal.querySelector(".modal-body");
+        mBody.innerHTML = htmlEndMessage;
+        showModal(endModal);
     }
 
     function detectWinRow() {
@@ -130,6 +125,7 @@
                 horizontals[j][i] = cells[i][j];
             }
         }
+
 
         for (let bigArr of [cells, horizontals, diagonals]) {
             for (let nestArr of bigArr) {
@@ -176,6 +172,21 @@
     function getRand(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 })();
+
+function restart() {
+    location.reload();
+}
+
+function showModalById(ID) {
+    showModal(document.getElementById(ID));
+}
+
+function showModal(modal) {
+    modal.style.display = "block";
+}
+
+
+
