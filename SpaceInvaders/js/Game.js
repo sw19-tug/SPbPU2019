@@ -22,13 +22,12 @@ class Game {
         this.fieldHeight=document.getElementById("game_field").clientHeight;
         this.fieldWidth=document.getElementById("game_field").clientWidth;
         this.cannonWidth=document.getElementById("cannonPic").clientWidth;
-        this.cannonHeight=document.getElementById("cannon").clientHeight;        
-        this.moveDownTimer;
+        this.cannonHeight=document.getElementById("cannon").clientHeight;    
         this.moveToTheSideTimer;
         document.onkeydown = logKey;
         this.setAliens();
         this.moveDownTimer=setInterval("moveAliensDown()", 6000);
-        this.moveToTheSideTimer=setInterval("moveAliens()", 700);
+        this.moveToTheSideTimer=setInterval("moveAliensSideways()", 700);
        
         this.bulletCreateTimer=setInterval("createBullet()", 200);
         this.bulletMoveTimer=setInterval("moveAllBullets()", 200);
@@ -54,6 +53,7 @@ class Game {
     	this.mainContainer.style.left='0px';
         this.mainContainer.style.top=document.getElementById('header').offsetHeight+10+'px';
         this.mainContainer.id="mainContainer";
+        //this.mainContainer.style.border="1px solid blue";
     	this.elementWidth=40;
     	for (var i=0; i<this.rows; i++){
     		this.alienContainers.push([]);
