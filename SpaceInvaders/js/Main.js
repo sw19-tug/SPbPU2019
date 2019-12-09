@@ -107,6 +107,14 @@ function getAliens() {
     }
 }
 
+
+function alienDefeated(i) {
+    //ALIEN DEFEATED
+    elem = document.getElementById('alien ' + alienCoordinates[i][4] + ' ' + alienCoordinates[i][5]);
+    elem.parentNode.removeChild(elem);
+    game.numberOfAliens--;
+}
+
 //checking if the cannon ball hit any of the aliens
 function checkForCollision(leftB, rightB, topB, bottomB) {
     getAliens();
@@ -122,10 +130,7 @@ function checkForCollision(leftB, rightB, topB, bottomB) {
         if (cond1 && cond2) {
 
             removeCannonBall();
-            //ALIEN DEFEATED
-            elem = document.getElementById('alien ' + alienCoordinates[i][4] + ' ' + alienCoordinates[i][5]);
-            elem.parentNode.removeChild(elem);
-            game.numberOfAliens--;
+            alienDefeated(i);
             if (game.numberOfAliens == 0) {
                 //NO ALIENS LEFT
                 endGame();
@@ -308,8 +313,7 @@ function moveAllBullets() {
             game.lives--;
             if (game.lives >= 1) {
                 document.getElementById('countLives').innerHTML = game.lives;
-            }
-            else {
+            } else {
                 document.getElementById('countLives').innerHTML = game.lives;
                 endGame();
             }
