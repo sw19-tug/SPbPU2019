@@ -1,25 +1,42 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-    <title>Four in a row</title>
-    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai&display=swap" rel="stylesheet"> 
-    <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
-    <link href="images/fab.gif" rel="shortcut icon" type="image/gif" />
-    <script src="scripts/Four in a row.js" async defer></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Four in a row</title>
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai&display=swap" rel="stylesheet">
+  <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+  <link href="images/logo.png" rel="shortcut icon" type="image/png" />
+  <script src="scripts/Four in a row.js" async defer></script>
 </head>
 
 <body>
-	
+
   <div id="playerMove">
-  	<div id="first_circle" class="circle"></div>
-  	<div class="playerMove-text">← This side plays first!</div>
-  	<div id="second_circle" class="circle"></div>
-	</div>
-	
+    <div id="first_circle" class="circle" style="transform: scale(1.2)"></div>
+    <div id="playerMove-text">← This side plays first!</div>
+    <div id="second_circle" class="circle"></div>
+  </div>
+
   <div id="field"></div>
 
+  <div id="endModal" class="background-with-delay">
+    <div class="modal-window-with-delay">
+      <div class="modal-header">
+        <h2>Victory!</h2>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <div class="modal-button-block">
+          <div id="play-again-ok" class="modal-button">Play again!</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </body>
+
 </html>
