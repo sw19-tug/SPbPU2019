@@ -113,6 +113,8 @@ function alienDefeated(i) {
     elem = document.getElementById('alien ' + alienCoordinates[i][4] + ' ' + alienCoordinates[i][5]);
     elem.parentNode.removeChild(elem);
     game.numberOfAliens--;
+    game.points += 10;
+    console.log('my points: ' + game.points);
 }
 
 //checking if the cannon ball hit any of the aliens
