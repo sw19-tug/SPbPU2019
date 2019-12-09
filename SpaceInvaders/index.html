@@ -1,13 +1,14 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>The Game Collection 2019</title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    
+
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src="js/bootstrap.min.js"></script>
 </head>
@@ -18,20 +19,18 @@
             <font class="header-font">Space Invaders</font>
         </div>
         <div id="main_menu">
-    	    <button class="mmb" id="start_button">START</button>
-    	</div>
+            <button class="mmb" id="start_button" onclick="livesField();">START</button>
+        </div>
         <div id="game_field">
             <div id="aliens">
             </div>
             <div id="cannon">
-                <img id="cannonPic" src="images/cannon.png" width="40px"/>
+                <img id="cannonPic" src="images/cannon.png" width="40px" />
             </div>
         </div>
     </div>
-
     <script src="js/Game.js"></script>
     <script src="js/Main.js"></script>
 </body>
-</html>
 
-            
+</html>
