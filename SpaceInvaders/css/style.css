@@ -22,13 +22,15 @@ body{
 }
 #header{
         height: 5%;
-        line-height: 100%;
         padding-top: 10px;
         padding-left: 10px;
         margin-bottom: 10px;
+}
+.header-font{
+        line-height: 100%;
         font-family: 'Furore';
         font-size: 20px;
-        color: #90e815;        
+        color: #90e815;
 }
 #main_menu{
   	    height: 95%;
