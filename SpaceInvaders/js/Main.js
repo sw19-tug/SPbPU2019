@@ -287,11 +287,6 @@ function createBullet() {
 
 }
 
-function changeLives(e) {
-    document.getElementById(e).style.display = 'none';
-    document.getElementById('countLives').innerHTML = e;
-}
-
 function moveAllBullets() {
     bulletOffset = 10;
     for (var i = 0; i < bulletList.length; i++) {
@@ -312,7 +307,7 @@ function moveAllBullets() {
             changePicTimer = setTimeout("document.getElementById('cannonPic').src='images/cannon.png'", 175);
             game.lives--;
             if (game.lives != -1) {
-                changeLives(game.lives);
+                document.getElementById('countLives').innerHTML = game.lives;
             }
             else {
                 console.log("game over: " + game.lives);
