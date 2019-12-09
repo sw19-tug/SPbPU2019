@@ -1,4 +1,5 @@
-﻿
+﻿document.getElementById('play-again-ok').addEventListener('click', restart);
+
 (function initializeGame() {
     const fieldWidth = 7;
     const fieldHeight = 6;
@@ -187,6 +188,3 @@ function showModalById(ID) {
 function showModal(modal) {
     modal.style.display = "block";
 }
-
-
-
