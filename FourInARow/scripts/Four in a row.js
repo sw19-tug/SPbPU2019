@@ -1,4 +1,11 @@
-﻿document.getElementById('play-again-ok').addEventListener('click', restart);
+﻿document.getElementById("info-button").addEventListener("click", () => showModalById('info-modal'));
+document.querySelectorAll(".close-button").forEach(cross => cross.addEventListener('click', makeCloseEventFromThis));
+document.querySelectorAll('.modal-background').forEach(modalWindow => {
+    modalWindow.addEventListener('click', makeCloseEventFromModalBackground);
+    modalWindow.addEventListener('close-event', closeEventListener);
+});
+document.getElementById('play-again-ok').addEventListener('click', restart);
+document.getElementById('info-ok').addEventListener('click', makeCloseEventFromThis);
 
 (function initializeGame() {
     const fieldWidth = 7;
@@ -86,15 +93,13 @@
     }
 
     function currentPlayerIndicator() {
-        firstTransform = firstCircle.style.transform;
-        secondTransform = secondCircle.style.transform;
-        [firstTransform, secondTransform] = [secondTransform, firstTransform];
-        const pText = document.getElementById("playerMove-text");
+        [firstCircle.style.transform, secondCircle.style.transform] = [secondCircle.style.transform, firstCircle.style.transform];
+        const pText = document.getElementById("player-move-text");
         pText.innerHTML = `${playerColoredNumeral()} plays now!`;
     }
 
     function endGame(htmlEndMessage) {
-        endModal = document.getElementById("endModal");
+        endModal = document.getElementById("end-modal");
         mBody = endModal.querySelector(".modal-body");
         mBody.innerHTML = htmlEndMessage;
         showModal(endModal);
@@ -187,4 +192,25 @@ function showModalById(ID) {
 
 function showModal(modal) {
     modal.style.display = "block";
+}
+
+function makeCloseEventFromModalBackground(event) {
+    if (event.target === this) {
+        makeCloseEvent(this);
+    }
+}
+
+function closeEventListener() {
+    this.style.display = "none";
+}
+
+function makeCloseEventFromThis() {
+    makeCloseEvent(this);
+}
+
+function makeCloseEvent(eventMaker) {
+    const closeEvent = new Event('close-event', {
+        bubbles: true
+    });
+    eventMaker.dispatchEvent(closeEvent);
 }
