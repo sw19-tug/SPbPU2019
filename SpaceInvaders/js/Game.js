@@ -12,13 +12,21 @@ class Game {
     start() {
 
         document.getElementById('header').insertAdjacentHTML('beforeend', `
-        <font style=" margin-left: 670px;"><div style=" display: inline-block; width:50px; color: #868a8d; margin-right: 20px;" id="countPoints" class="header-font">000</div><img src="images/live.png" width="30" height="20" style="margin-top: -7px;"> <font style="color: #868a8d;" id="countLives" class="header-font">3</font> </font>
-        </div>`);
+        <font id="info" style=" margin-left: 670px;"><div style=" display: inline-block; width:50px; color: #868a8d; margin-right: 20px;" id="countPoints" class="header-font">000</div><img src="images/live.png" width="30" height="20" style="margin-top: -7px;"> <font style="color: #868a8d;" id="countLives" class="header-font">3</font> 
+        </div></font>`);
+
+        
         //set the position of the cannon
-        this.cannonPosition = document.getElementById("main_menu").clientWidth / 2;
+        if(document.getElementById("main_menu").clientWidth){
+            this.cannonPosition = document.getElementById("main_menu").clientWidth / 2;
+        }
+        else{
+            this.cannonPosition=document.getElementById("end_screen").clientWidth / 2;
+        }
         document.getElementById("cannon").style.left = this.cannonPosition + 'px';
         //hide the main menu
         document.getElementById("main_menu").style.display = "none";
+        document.getElementById("end_screen").style.display = "none";
         //show the gamefield
         document.getElementById("game_field").style.display = "block";
         //get gamefield and cannon parameters
@@ -40,6 +48,28 @@ class Game {
     }
 
     stop() {
+                
+                alienCoordinates = []; //list of coordinates of the lowest aliens
+                horDir = 1; //direction for horizontal movement
+                bulletList = [];  
+                isCannonBallMoving = 0;              
+                this.alienElement=document.getElementById('mainContainer');
+                this.fieldElement=document.getElementById('game_field');
+                this.fieldElement.removeChild(this.alienElement);
+                if (this.fieldElement.contains(cannonBall))
+                    this.fieldElement.removeChild(cannonBall);
+                this.bullets=document.getElementsByClassName('bullet');
+                while(this.bullets[0]){
+                    this.fieldElement.removeChild(this.bullets[0]);
+                }
+
+                this.headerElement=document.getElementById('header');
+                this.pointsElement=document.getElementById('info');
+                this.headerElement.removeChild(this.pointsElement);
+                this.fieldElement.style.display='none';
+                this.endScreen=document.getElementById('end_screen');
+                this.endScreen.style.display='block';
+                document.getElementById('end_label2').innerHTML='you scored '+this.points+' points<br>';
 
     }
 
