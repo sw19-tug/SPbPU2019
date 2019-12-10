@@ -12,16 +12,45 @@
 </head>
 
 <body>
+  <div class="button-block">
+    <div id="info-button" class="button">i</div>
+  </div>
 
-  <div id="playerMove">
+  <div id="player-move">
     <div id="first_circle" class="circle" style="transform: scale(1.2)"></div>
-    <div id="playerMove-text">← This side plays first!</div>
+    <div id="player-move-text">← This side plays first!</div>
     <div id="second_circle" class="circle"></div>
   </div>
 
   <div id="field"></div>
 
-  <div id="endModal" class="background-with-delay">
+  <div id="info-modal" class="modal-background">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="close-button">&times;</div>
+        <h2>Instructions</h2>
+      </div>
+      <div class="modal-body">
+        <p>
+          It is the goal of the game to connect four of your tokens in a line.<br />
+          All directions (vertical, horizontal, diagonal) are allowed.
+        </p>
+        <p>
+          Players take turns putting one of their tokens into one of the slots.<br />
+          A token falls down as far as possible within a slot.<br />
+          The game ends immediately when one player connects four stones.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-button-block">
+          <div id="info-ok" class="modal-button">OK</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="end-modal" class="background-with-delay">
     <div class="modal-window-with-delay">
       <div class="modal-header">
         <h2>Victory!</h2>
