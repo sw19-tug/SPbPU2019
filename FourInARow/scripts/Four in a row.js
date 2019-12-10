@@ -1,4 +1,5 @@
 ﻿document.getElementById("info-button").addEventListener("click", () => showModalById('info-modal'));
+document.getElementById("restart-button").addEventListener("click", () => showModalById('restart-modal'));
 document.querySelectorAll(".close-button").forEach(cross => cross.addEventListener('click', makeCloseEventFromThis));
 document.querySelectorAll('.modal-background').forEach(modalWindow => {
     modalWindow.addEventListener('click', makeCloseEventFromModalBackground);
@@ -6,6 +7,8 @@ document.querySelectorAll('.modal-background').forEach(modalWindow => {
 });
 document.getElementById('play-again-ok').addEventListener('click', restart);
 document.getElementById('info-ok').addEventListener('click', makeCloseEventFromThis);
+document.getElementById('restart-no').addEventListener('click', makeCloseEventFromThis);
+document.getElementById('restart-ok').addEventListener('click', restart);
 
 (function initializeGame() {
     const fieldWidth = 7;
