@@ -18,6 +18,7 @@ class Player {
         this.dead = false;
         this.constructor.counter = (this.constructor.counter || 0) + 1;
         this._id = this.constructor.counter;
+        this.score = 0;
 
         Player.allInstances.push(this);
     }
@@ -162,6 +163,13 @@ function draw() {
 let game = setInterval(draw, 100);
 
 function resetGame() {
+    if (Player.allInstances[0].score == 4 || Player.allInstances[1].score == 4){
+        Player.allInstances[0].score = 0;
+        Player.allInstances[1].score = 0;
+        document.getElementById("score").innerText = "0:0";
+        document.getElementById("resetButton").innerText = "Next round";
+        document.getElementById("totalScore").innerText = "";
+    }
     document.getElementById("modal").style.display = "none";
     // Remove the results node
     const result = document.getElementById('result');
@@ -197,12 +205,20 @@ function resetGame() {
 function showModal() {
     Player.allInstances.forEach(p => {
         if (p.dead === false) {
+            p.score += 1;
             winnerColor = p.color;
             p.dead = true
         }
     });
 
-    document.getElementById("modal-body").innerHTML = 'Player <span class=\"color-box\" style=\"background-color: ' + winnerColor + '\"></span> wins!';
+    if (Player.allInstances[0].score == 4 || Player.allInstances[1].score == 4){
+        document.getElementById("title").innerText = "Game is over";
+        document.getElementById("resetButton").innerText = "New game";
+        document.getElementById("totalScore").innerText = Player.allInstances[0].score + ":" + Player.allInstances[1].score;
+    }
+
+    document.getElementById("score").innerText = Player.allInstances[0].score + ":" + Player.allInstances[1].score;
+    document.getElementById("winnerInfo").innerHTML = 'Player <span class=\"color-box\" style=\"background-color: ' + winnerColor + '\"></span> wins!';
     clearInterval(game);
     document.getElementById("modal").style.display = "block";
 }

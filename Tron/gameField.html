@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="justify-content-center fieldWrapper">
+    <div class="matches" id="score">0:0</div>
     <canvas id="tron" width="750" height="510" class="field"/>
 </div>
 
@@ -18,14 +19,15 @@
     <div class="modal-dialog modal-dialog-centered" role="document" >
         <div class="modal-content bg-dark neon-wrapper">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Round is over</h5>
+                <h5 class="modal-title" id="title">Round is over</h5>
             </div>
             <div class="modal-body" id="modal-body">
-                ...
+                <div id="totalScore"></div>
+                <div id="winnerInfo"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-menu" onclick="goToMenu()">Go to menu</button>
-                <button type="button" class="btn btn-next" onclick="resetGame()">Next round</button>
+                <button type="button" class="btn btn-next" id="resetButton" onclick="resetGame()">Next round</button>
             </div>
         </div>
     </div>
