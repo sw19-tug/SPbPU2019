@@ -32,6 +32,12 @@ body{
         font-size: 20px;
         color: #90e815;
 }
+
+.end_screen_font{
+    font-size: 30px;
+    font-family: 'Roboto';
+    color: #868a8d;
+}
 #main_menu{
   	    height: 95%;
         text-align: center;
@@ -45,13 +51,17 @@ body{
 #end_screen{
         height: 95%;
         text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        
         display: none;
 }
 #end_label{
+        position: relative;
+        top: 19%;
+        margin: 20px;
+}
+#end_label2{
+        position: relative;
+        top: 22%;
         margin: 20px;
 }
 .menu_button{
@@ -70,6 +80,10 @@ body{
 #start_button{
         position: relative;
         top: 40%;
+}
+#restart_button{
+        position: relative;
+        top: 29%;
 }
 #cannon{
         position: absolute;

@@ -4,6 +4,8 @@ let game = new Game();
 
 let startButton = document.getElementById('start_button');
 startButton.addEventListener('click', () => game.start());
+let restartButton = document.getElementById('restart_button');
+restartButton.addEventListener('click', () => game.start());
 
 let cannonBall = document.createElement('IMG');
 let isCannonBallMoving = 0;
@@ -246,6 +248,7 @@ function endGame() {
     clearInterval(game.bulletMoveTimer);
     clearInterval(cannonBallTimer);
     document.onkeydown = false;
+    game.stop();
 }
 
 //checking if the last row of aliens reached the bottom of the gamefield
@@ -285,6 +288,7 @@ function createBullet() {
         bullet = document.createElement('IMG');
         bullet.src = 'images/bullet.png';
         bullet.id = 'bullet' + bulletList.length;
+        bullet.className='bullet';
         bullet.style.position = 'absolute';
         bullet.style.width = '10px';
         bullet.style.top = raBottom + 11 + 'px';
