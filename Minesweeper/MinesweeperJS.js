@@ -4,15 +4,16 @@ var Minesweeper = function (obj) {
     this.status = '';
 
     //все соседние позиции конкретного поля
-    this.directions =   [[-1, -1], [-1, 0], [-1, 1],
-                        [0,  -1],          [0,  1],
-                        [1,  -1], [1,  0], [1,  1]];
+    this.directions = [[-1, -1], [-1, 0], [-1, 1],
+        [0, -1], [0, 1],
+        [1, -1], [1, 0], [1, 1]];
 
     //выставляем параметры
     //TODO: значения по дефолту
-    this.height = obj.height;
-    this.width = obj.height;
-    this.mines = obj.mines;
+    this.height = obj.height || 8;
+    this.width = obj.height || 8;
+    this.mines = obj.mines || 8;
+    this.flagCounter = obj.mines;
     //грид - поле
     this.grid = [];
 
@@ -72,6 +73,7 @@ Minesweeper.prototype.init = function () {
     this.status = 'intializing';
     this.location.innerHTML = ''; //отчищаем поле локации, обнуляем массив
     this.grid = [];
+    document.getElementById('flag-counter').innerHTML = 'flags left: ' + this.flagCounter;
 
     for (h = 0; h < this.height; h++) {
         var row = [];
@@ -192,19 +194,22 @@ Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг ч�
 Minesweeper.prototype.flag = function (pos) {
     var cur = this.grid[pos[0]][pos[1]];
     if (!cur.activated) {
-        if (!cur.flag && !cur.question) {
+        if (!cur.flag && !cur.question && this.flagCounter > 0) {
             cur.flag = true;
-            this.pos_to_element(pos).classList.add('flag')
+            this.pos_to_element(pos).classList.add('flag');
+            this.flagCounter--;
         } else if (cur.flag && !cur.question) {
             cur.flag = false;
             cur.question = true;
             this.pos_to_element(pos).classList.remove('flag');
+            this.flagCounter++;
             this.pos_to_element(pos).classList.add('question')
         } else if (!cur.flag && cur.question) {
             cur.question = false;
-            this.pos_to_element(pos).classList.remove('question')
+            this.pos_to_element(pos).classList.remove('question');
         }
     }
+    document.getElementById('flag-counter').innerHTML = 'flags left: ' + this.flagCounter;
     this.check_win_state();
 };
 //TODO: функция проверки вина

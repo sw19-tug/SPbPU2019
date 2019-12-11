@@ -1,4 +1,5 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto+Mono';
+
 body {
     margin: 0;
     padding: 0;
@@ -19,6 +20,12 @@ h1, h2, h3, h4, h5, h6 {
     height: 100px;
     line-height: 100px;
     text-align: center;
+}
+
+#flag-counter {
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .board_container {
