@@ -35,29 +35,29 @@ body {
     text-align: center;
 }
 
-    #letterBank button {
-        float: left;
-        width: 50px;
-        height: 55px;
-        margin: 0px 10px 10px 0px;
-        cursor: pointer;
-        background-color: #614991;
-        color: #ffffff;
-        font-family: 'Chonburi';
-        border-radius: 5px;
-    }
+#letterBank button {
+    float: left;
+    width: 50px;
+    height: 55px;
+    margin: 0px 10px 10px 0px;
+    cursor: pointer;
+    background-color: #614991;
+    color: #ffffff;
+    font-family: 'Bebas Neue', cursive;
+    border-radius: 5px;
+}
 
-        #letterBank button:hover {
-            background-color: #3e8c4f;
-        }
+#letterBank button:hover {
+    background-color: #3e8c4f;
+}
 
-        #letterBank button:active {
-            background-color: #0d581d;
-        }
+#letterBank button:active {
+    background-color: #0d581d;
+}
 
-        #letterBank button:disabled {
-            background-color: #a199b3;
-        }
+#letterBank button:disabled {
+    background-color: #a199b3;
+}
 
 #hangmanPicture {
     width: 350px;
@@ -67,29 +67,29 @@ body {
     border: 1px double #604892;
     border-radius: 15px;
     background: #fdfdfd;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .one {
     padding: 5px;
 }
 
-    .one h1 {
-        font-family: 'Chonburi';
-        color: #362752;
-        text-align: left;
-        font-size: 3em;
-        padding: 11px 10px;
-        margin-top: 60px;
-        line-height: 1;
-    }
+.one h1 {
+    font-family: 'Bebas Neue', cursive;
+    color: #362752;
+    text-align: left;
+    font-size: 3em;
+    padding: 11px 10px;
+    margin-top: 60px;
+    line-height: 1;
+}
 
-    .one p {
-        font-family: 'Futura PT Book';
-        color: #362752;
-        text-align: left;
-        font-size: 25px;
-    }
+.one p {
+    font-family: 'Futura PT Book';
+    color: #362752;
+    text-align: left;
+    font-size: 25px;
+}
 
 #wordWrapper {
     text-align: center;
@@ -189,11 +189,13 @@ input {
     background: #362752;
 }
 
-.lefthand, .leftfoot {
+.lefthand,
+.leftfoot {
     transform: rotate(-45deg);
 }
 
-.righthand, .rightfoot {
+.righthand,
+.rightfoot {
     transform: rotate(45deg);
 }
 
@@ -217,7 +219,7 @@ input {
     left: 35px;
 }
 
-.invisible{
+.invisible {
     display: none;
 }
 
@@ -229,7 +231,7 @@ input {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1050;
     -webkit-transition: opacity 200ms ease-in;
     -moz-transition: opacity 200ms ease-in;
@@ -246,7 +248,7 @@ input {
 /*Modal Header*/
 .modal-header {
     text-align: center;
-    font-family: 'Chonburi';
+    font-family: 'Bebas Neue', cursive;
     color: #786B6B;
     background-color: #FFFEFE;
 }
@@ -258,7 +260,7 @@ input {
     padding: 20px;
     border: 1px solid #888;
     width: 30%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     top: 25%;
     left: 0;
     right: 0;
@@ -272,5 +274,5 @@ input {
     width: 100px;
     height: 30px;
     border-radius: 30px;
-    margin:auto;
+    margin: auto;
 }
