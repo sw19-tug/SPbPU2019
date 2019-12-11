@@ -5,22 +5,26 @@
   <meta charset="utf-8">
   <title>Minesweeper</title>
 
-  <link rel="stylesheet" href="MinesweeperStyle.css">
+  <link rel="stylesheet" href="MinesweeperIndex.css">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/style.css">
   <!--<script src="../js/bootstrap.min.js"></script>-->
-  <script src="MinesweeperJS.js"></script>
+  <script>
+    function goToGameField() {
+      document.location.href = "gameField.html";
+    }
+  </script>
 
 </head>
 
 <body>
-  <div id="games" class="row row justify-content-center">
-    <div class="wrapper">
-      <div class="start-up-menu-content bg-light">
-        <h2 class="start-up-menu-title">Minesweeper</h2>
-        <button type="button" class="btn btn-primary btn-lg" onclick="goToGameField()">Play game</button>
-      </div>
+<div id="games" class="row row justify-content-center">
+  <div class="wrapper">
+    <div class="start-up-menu-content bg-light">
+      <h2 class="start-up-menu-title">Minesweeper</h2>
+      <button type="button" class="btn btn-primary btn-lg" onclick="goToGameField()">Play game</button>
     </div>
   </div>
+</div>
 </body>
 </html>
