@@ -146,7 +146,8 @@ Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг ч�
                             (parseInt(x, 10) + parseInt(e[1], 10))], false))
                     }.bind(this))
                 } else {
-                    //TODO: циферки в блоках
+                    this.pos_to_element(pos).innerHTML = neighbors;
+                    this.pos_to_element(pos).dataset.neighbors = neighbors;
                     this.pos_to_element(pos).classList.add('activated');
                     this.grid[y][x].activated = true
                 }
