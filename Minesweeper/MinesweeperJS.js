@@ -262,5 +262,5 @@ var Game = new Minesweeper({
     'location': '#board',
     'height': 8,
     'width': 8,
-    'mines': 5
+    'mines': 10
 });
