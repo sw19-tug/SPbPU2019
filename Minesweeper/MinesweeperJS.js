@@ -123,9 +123,15 @@ Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг ч�
             || (!clicked && !cur.activated)) { //если не клик, и не активирован
             if (cur.mine) {//если нажатый квадратик - мина, проигрыш и показываем все мины
                 if (!checking) {
-                    console.log(cur);
-                    this.pos_to_element([y, x]).className = 'square mine'
-                    //TODO: проигрыш
+                    this.status = 'lost';
+                    var h, w;
+                    for (h = 0; h < this.height; h++) {
+                        for (w = 0; w < this.width; w++) {
+                            if (this.grid[h][w].mine) {
+                                this.pos_to_element([h, w]).className = 'square mine'
+                            }
+                        }
+                    }
                 } else {
                     return true
                 }
