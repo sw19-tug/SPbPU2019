@@ -2,29 +2,36 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Minesweeper</title>
-
-  <link rel="stylesheet" href="MinesweeperIndex.css">
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/style.css">
-  <!--<script src="../js/bootstrap.min.js"></script>-->
-  <script>
-    function goToGameField() {
-      document.location.href = "gameField.html";
-    }
-  </script>
-
+    <meta charset="utf-8">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="MinesweeperIndex.css">
 </head>
 
 <body>
-<div id="games" class="row row justify-content-center">
-  <div class="wrapper">
-    <div class="start-up-menu-content bg-light">
-      <h2 class="start-up-menu-title">Minesweeper</h2>
-      <button type="button" class="btn btn-primary btn-lg" onclick="goToGameField()">Play game</button>
+<div class="window">
+    <h1>Minesweeper</h1>
+    <div class="row">
+        <label for="square">Square:</label>
+        <input type="number" id="square" placeholder="5">
     </div>
-  </div>
+    <label for="mineCount">Mines:</label>
+    <input type="number" id="mineCount" placeholder="5">
+    <br>
+    <button onclick="startGame()">Go!</button>
 </div>
 </body>
+<script>
+    function checkParams() {
+        return (square.value >= 5 && square.value <= 20 && mineCount.value > 1 && mineCount.value < square.value * square.value);
+    }
+    function startGame() {
+        if (checkParams()) {
+            window.localStorage.setItem("gameParamsS", square.value);
+            window.localStorage.setItem("gameParamsM", mineCount.value);
+            document.location.href = "gameField.html";
+        } else {
+            alert("wrong parameters!");
+        }
+    }
+</script>
 </html>
