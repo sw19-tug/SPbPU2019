@@ -51,7 +51,7 @@ var Minesweeper = function (obj) {
     this.init();
 };
 
-Minesweeper.prototype.checkFlags = function () { //функция проверяет, все ли мины помечены флагами
+Minesweeper.prototype.check_flags = function () { //функция проверяет, все ли мины помечены флагами
     var res = true;
     var counter = 0;
     this.grid.forEach(row => {
@@ -66,14 +66,15 @@ Minesweeper.prototype.checkFlags = function () { //функция проверя
     else return res;
 };
 
-
 //эта функция отрисовывает поле (с нуля)
 Minesweeper.prototype.init = function () {
     var h, w;
     this.status = 'intializing';
     this.location.innerHTML = ''; //отчищаем поле локации, обнуляем массив
     this.grid = [];
+    this.flagCounter = this.mines;
     document.getElementById('flag-counter').innerHTML = 'flags left: ' + this.flagCounter;
+    document.getElementById('stats').innerHTML = '';
 
     for (h = 0; h < this.height; h++) {
         var row = [];
@@ -138,7 +139,7 @@ Minesweeper.prototype.add_mines = function (pos) {
     this.status = 'playing';
     this.check(pos, false);
 };
-//
+
 Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг чекинг нужен для того, чтобы проверить бомбы
     var y = pos[0];
     var x = pos[1];
@@ -157,6 +158,9 @@ Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг ч�
                             }
                         }
                     }
+                    Game.show_message('You lost!', 'Reset', 'lost', function () {
+                        this.init()
+                    }.bind(this))
                 } else {
                     return true
                 }
@@ -226,10 +230,41 @@ Minesweeper.prototype.flag = function (pos, remove = false) {
         this.check_win_state();
     }
     document.getElementById('flag-counter').innerHTML = 'flags left: ' + this.flagCounter;
-    // this.check_win_state();
 };
-//TODO: функция проверки вина
-//TODO: функция вывода сообщения
+
+Minesweeper.prototype.show_message = function (message, button_message, classname, fn) {
+    var dialog_element = document.createElement('div');
+    dialog_element.id = 'message';
+    dialog_element.className = classname;
+    var dialog_message_element = document.createElement('div');
+    dialog_message_element.appendChild(document.createTextNode(message));
+    dialog_element.appendChild(dialog_message_element);
+    var dialog_button_element = document.createElement('button');
+    dialog_button_element.appendChild(document.createTextNode(button_message));
+    dialog_element.appendChild(dialog_button_element);
+    this.location.appendChild(dialog_element);
+    this.get_stats();
+    document.querySelector('#message > button').addEventListener('mouseup', fn);
+};
+
+Minesweeper.prototype.get_stats = function(){
+    var mines_found = 0;
+    var flags_used = this.mines - this.flagCounter;
+    this.grid.forEach(row => {
+        row.forEach(el => {
+            if (el.mine && el.flag) {
+                mines_found++;
+            }
+        });
+    });
+    var mines_not_found = this.mines - mines_found;
+    var str ='<span>mines found: ' + mines_found +
+        '</span><span>mines not found: ' + mines_not_found +
+        '</span><span>flags used: '+ flags_used +
+        '</span>';
+    document.getElementById('stats').innerHTML = str;
+};
+
 Minesweeper.prototype.check_win_state = function () {
     var h, w;
     var activated_squares = 0;
@@ -242,13 +277,12 @@ Minesweeper.prototype.check_win_state = function () {
             }
         }
     }
-    console.log(activated_squares);
 
-    if ((activated_squares === (this.height * this.width) - this.mines) || this.checkFlags()) {
+    if ((activated_squares === (this.height * this.width) - this.mines) || this.check_flags()) {
         this.status = 'won';
-        console.log(activated_squares === (this.height * this.width) - this.mines, this.checkFlags());
-        console.log('WIIIIIN');
-        //TODO: сообщение от игры
+        this.show_message("You've won!", 'Reset', 'won', function () {
+            this.init()
+        }.bind(this))
     }
 };
 
@@ -256,14 +290,14 @@ Minesweeper.prototype.id_to_pos = function (id) {
     var id_matches = id.match(/(\w+)\[(\d+)\]\[(\d+)\]/);
     return [id_matches[2], id_matches[3]]
 };
-//
+
 Minesweeper.prototype.pos_to_element = function (pos) {
     return document.getElementById('square[' + pos[0] + '][' + pos[1] + ']')
 };
 Minesweeper.prototype.grid_to_id = function (y, x, key, value) {
     document.getElementById('square[' + y + '][' + x + ']')[key] = value;
 };
-//
+
 Minesweeper.prototype.rand = function (min, max, round) {
     if (round === false) {
         return (Math.random() * (max - min)) + min
