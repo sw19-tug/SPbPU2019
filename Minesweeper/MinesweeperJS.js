@@ -35,11 +35,17 @@ var Minesweeper = function (obj) {
                     this.check(this.id_to_pos(e.target.id), false, true)
                 }
                 // console.log('left click on ' + e.target.id)
+            } else if (e.which === 3) {
+                if (this.status === 'playing') {
+                    this.flag(this.id_to_pos(e.target.id))
+                }
+                // console.log('right click on ' + e.target.id)
             }
-            //TODO: добавить флаги по райтклику
         }
     }.bind(this));
-    //TODO: добавить превентивное поведение для райтклика
+    this.location.addEventListener('contextmenu', function (e) {
+        e.preventDefault()
+    });
     this.init();
 };
 
@@ -165,7 +171,25 @@ Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг ч�
     }
     //TODO: проверить вин
 };
-//TODO: функция установки флага
+
+Minesweeper.prototype.flag = function (pos) {
+    var cur = this.grid[pos[0]][pos[1]];
+    if (!cur.activated) {
+        if (!cur.flag && !cur.question) {
+            cur.flag = true;
+            this.pos_to_element(pos).classList.add('flag')
+        } else if (cur.flag && !cur.question) {
+            cur.flag = false;
+            cur.question = true;
+            this.pos_to_element(pos).classList.remove('flag');
+            this.pos_to_element(pos).classList.add('question')
+        } else if (!cur.flag && cur.question) {
+            cur.question = false;
+            this.pos_to_element(pos).classList.remove('question')
+        }
+    }
+//TODO: проверка выигрыша
+};
 //TODO: функция проверки вина
 //TODO: функция вывода сообщения
 
