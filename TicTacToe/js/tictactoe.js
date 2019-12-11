@@ -5,6 +5,7 @@ var player1 = "X",
     stepCount = 0,
     cells,
     gameMode,
+    playAiTO,
     emptyCells = [1, 2, 3, 4, 5, 6, 7, 8, 9],
     winCombinations = [
         [1, 2, 3],
@@ -50,16 +51,19 @@ function RandomSign() {
     const playerO = document.getElementById(signO);
     playerO.innerHTML = "O";
 
+    if (Math.round(Math.random()) == 1) {
+        currentPlayer = player1;
+        document.getElementById('turn').innerHTML = "Turn: Player " + player2;
+    } else {
+        currentPlayer = player2;
+        document.getElementById('turn').innerHTML = "Turn: Player " + player1;
+    }
 }
 
 function startGame() {
     cells = document.querySelectorAll('.cell');
     for (var i = 0; i < cells.length; i++) {
         cells[i].addEventListener('click', currentStep);
-    }
-
-    if (!!gameMode) {
-        document.getElementById('turn').innerHTML = "Turn: Player " + player1;
     }
 }
 
@@ -92,7 +96,7 @@ function currentStep(me) {
         if (playAiTO) {
             window.clearTimeout(playAiTO);
         }
-        var playAiTO = window.setTimeout(function() { playAI(); }, 100);
+        playAiTO = window.setTimeout(function() { playAI(); }, 100);
     }
 
     stepCount++
@@ -158,8 +162,13 @@ function chooseSign() {
     player1 = this.getAttribute("id");
     player2 = player1 == "O" ? "X" : "O";
     playerAI = player2;
+
     document.getElementById('modal-sign').style.display = 'none';
-    document.getElementById('turn').innerHTML = "Turn: Player " + player1;
+    if (Math.round(Math.random()) == 1) {
+      document.getElementById('turn').innerHTML = "Turn: Player " + playerAI;
+      currentPlayer = player1;
+      playAI();
+    }
 }
 
 function playAI() {
@@ -212,7 +221,7 @@ function bestCell() {
         }
         for (l in dataPlayer) {
             if (winCombinations[i].includes(dataPlayer[l])) {
-                score[i] += 4;
+                score[i] += 3;
             }
         }
     }
