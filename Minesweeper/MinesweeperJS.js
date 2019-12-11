@@ -12,7 +12,7 @@ var Minesweeper = function (obj) {
     //TODO: значения по дефолту
     this.height = obj.height || 8;
     this.width = obj.height || 8;
-    this.mines = obj.mines || 8;
+    this.mines = obj.mines || 10;
     this.flagCounter = obj.mines;
     //грид - поле
     this.grid = [];
@@ -137,7 +137,6 @@ Minesweeper.prototype.add_mines = function (pos) {
     // в общем: кликнутый квадратик не мина и у него нет соседей мин - тогда мы прекращаем расставлять мины
     this.status = 'playing';
     this.check(pos, false);
-    this.check_win_state();
 };
 //
 Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг чекинг нужен для того, чтобы проверить бомбы
@@ -170,9 +169,13 @@ Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг ч�
                     }
                 }.bind(this)); //считаем количество соседей-бомб
 
+                if (this.pos_to_element(pos).classList.contains('flag') || this.pos_to_element(pos).classList.contains('question')) {
+                    this.flag(pos, true);
+                }
+                this.grid[y][x].activated = true;
+                this.pos_to_element(pos).classList.add('activated');
+
                 if (neighbors === 0) { //если соседей нет, то активируем нажатый квадрат и все вокруг него тоже чекаем (рекурсивно)
-                    this.pos_to_element(pos).classList.add('activated');
-                    this.grid[y][x].activated = true; //TODO: вынести за иф
                     this.directions.forEach(function (e) {
                         (this.check([(parseInt(y, 10) + parseInt(e[0], 10)),
                             (parseInt(x, 10) + parseInt(e[1], 10))], false))
@@ -180,8 +183,7 @@ Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг ч�
                 } else {
                     this.pos_to_element(pos).innerHTML = neighbors;
                     this.pos_to_element(pos).dataset.neighbors = neighbors;
-                    this.pos_to_element(pos).classList.add('activated');
-                    this.grid[y][x].activated = true
+
                 }
                 // console.log('[' + y + '][' + x + '] has neighbors: ' + neighbors)
             } else if (checking) {
@@ -191,26 +193,40 @@ Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг ч�
     }
 };
 
-Minesweeper.prototype.flag = function (pos) {
+Minesweeper.prototype.flag = function (pos, remove = false) {
     var cur = this.grid[pos[0]][pos[1]];
-    if (!cur.activated) {
-        if (!cur.flag && !cur.question && this.flagCounter > 0) {
-            cur.flag = true;
-            this.pos_to_element(pos).classList.add('flag');
-            this.flagCounter--;
-        } else if (cur.flag && !cur.question) {
-            cur.flag = false;
-            cur.question = true;
+    if (remove) {
+        if (this.pos_to_element(pos).classList.contains('flag')){
             this.pos_to_element(pos).classList.remove('flag');
             this.flagCounter++;
-            this.pos_to_element(pos).classList.add('question')
-        } else if (!cur.flag && cur.question) {
-            cur.question = false;
+        }
+        if(this.pos_to_element(pos).classList.contains('question')){
             this.pos_to_element(pos).classList.remove('question');
         }
+        cur.question = false;
+        cur.flag = false;
+
+    } else {
+        if (!cur.activated) {
+            if (!cur.flag && !cur.question && this.flagCounter > 0) {
+                cur.flag = true;
+                this.pos_to_element(pos).classList.add('flag');
+                this.flagCounter--;
+            } else if (cur.flag && !cur.question) {
+                cur.flag = false;
+                cur.question = true;
+                this.pos_to_element(pos).classList.remove('flag');
+                this.flagCounter++;
+                this.pos_to_element(pos).classList.add('question')
+            } else if (!cur.flag && cur.question) {
+                cur.question = false;
+                this.pos_to_element(pos).classList.remove('question');
+            }
+        }
+        this.check_win_state();
     }
     document.getElementById('flag-counter').innerHTML = 'flags left: ' + this.flagCounter;
-    this.check_win_state();
+    // this.check_win_state();
 };
 //TODO: функция проверки вина
 //TODO: функция вывода сообщения
@@ -263,9 +279,9 @@ var Square = function () {
     this.question = false
 };
 
-var Game = new Minesweeper({
-    'location': '#board',
-    'height': 8,
-    'width': 8,
-    'mines': 10
-});
+var s = Number(window.localStorage.getItem("gameParamsS"));
+var m = Number(window.localStorage.getItem("gameParamsM"));
+var Game = new Minesweeper({ 'location': '#board',
+    'height': s,
+    'width': s,
+    'mines': m });
