@@ -33,11 +33,12 @@ var Minesweeper = function (obj) {
 
                     //чекаем клинкутую позицию, если статус - игра
                     this.check(this.id_to_pos(e.target.id), false, true)
+                    this.check_win_state();
                 }
                 // console.log('left click on ' + e.target.id)
             } else if (e.which === 3) {
                 if (this.status === 'playing') {
-                    this.flag(this.id_to_pos(e.target.id))
+                    this.flag(this.id_to_pos(e.target.id));
                 }
                 // console.log('right click on ' + e.target.id)
             }
@@ -48,6 +49,22 @@ var Minesweeper = function (obj) {
     });
     this.init();
 };
+
+Minesweeper.prototype.checkFlags = function () { //функция проверяет, все ли мины помечены флагами
+    var res = true;
+    var counter = 0;
+    this.grid.forEach(row => {
+        row.forEach(el => {
+            if (el.mine) {
+                res = res && el.flag;
+                counter++;
+            }
+        });
+    });
+    if (counter === 0) return false;
+    else return res;
+};
+
 
 //эта функция отрисовывает поле (с нуля)
 Minesweeper.prototype.init = function () {
@@ -117,7 +134,8 @@ Minesweeper.prototype.add_mines = function (pos) {
     // !this.grid[pos[0]][pos[1]].mine && neighbors == 0 - чтобы выйти из цикла
     // в общем: кликнутый квадратик не мина и у него нет соседей мин - тогда мы прекращаем расставлять мины
     this.status = 'playing';
-    this.check(pos, false)
+    this.check(pos, false);
+    this.check_win_state();
 };
 //
 Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг чекинг нужен для того, чтобы проверить бомбы
@@ -169,7 +187,6 @@ Minesweeper.prototype.check = function (pos, checking, clicked) { //флаг ч�
             }
         }
     }
-    //TODO: проверить вин
 };
 
 Minesweeper.prototype.flag = function (pos) {
@@ -188,10 +205,31 @@ Minesweeper.prototype.flag = function (pos) {
             this.pos_to_element(pos).classList.remove('question')
         }
     }
-//TODO: проверка выигрыша
+    this.check_win_state();
 };
 //TODO: функция проверки вина
 //TODO: функция вывода сообщения
+Minesweeper.prototype.check_win_state = function () {
+    var h, w;
+    var activated_squares = 0;
+
+    for (h = 0; h < this.height; h++) {
+        for (w = 0; w < this.width; w++) {
+            var cur = this.grid[h][w];
+            if (cur.activated) {
+                activated_squares++
+            }
+        }
+    }
+    console.log(activated_squares);
+
+    if ((activated_squares === (this.height * this.width) - this.mines) || this.checkFlags()) {
+        this.status = 'won';
+        console.log(activated_squares === (this.height * this.width) - this.mines, this.checkFlags());
+        console.log('WIIIIIN');
+        //TODO: сообщение от игры
+    }
+};
 
 Minesweeper.prototype.id_to_pos = function (id) {
     var id_matches = id.match(/(\w+)\[(\d+)\]\[(\d+)\]/);
@@ -202,7 +240,7 @@ Minesweeper.prototype.pos_to_element = function (pos) {
     return document.getElementById('square[' + pos[0] + '][' + pos[1] + ']')
 };
 Minesweeper.prototype.grid_to_id = function (y, x, key, value) {
-  document.getElementById('square[' + y + '][' + x + ']')[key] = value
+    document.getElementById('square[' + y + '][' + x + ']')[key] = value;
 };
 //
 Minesweeper.prototype.rand = function (min, max, round) {
@@ -220,7 +258,9 @@ var Square = function () {
     this.question = false
 };
 
-var Game = new Minesweeper({ 'location': '#board',
+var Game = new Minesweeper({
+    'location': '#board',
     'height': 8,
     'width': 8,
-    'mines': 10 });
+    'mines': 10
+});
