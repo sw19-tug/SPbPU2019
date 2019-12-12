@@ -66,6 +66,12 @@ body {
 	color: #ff981d;
 }
 
+#back-block {
+	position: absolute;
+	left: 35px;
+	top: 10px;
+}
+
 .unselectable-text,
 .button,
 .close-button {

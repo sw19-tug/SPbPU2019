@@ -1,5 +1,6 @@
 ﻿document.getElementById("info-button").addEventListener("click", () => showModalById('info-modal'));
 document.getElementById("restart-button").addEventListener("click", () => showModalById('restart-modal'));
+document.getElementById("back-button").addEventListener("click", () => showModalById('back-modal'));
 document.querySelectorAll(".close-button").forEach(cross => cross.addEventListener('click', makeCloseEventFromThis));
 document.querySelectorAll('.modal-background').forEach(modalWindow => {
     modalWindow.addEventListener('click', makeCloseEventFromModalBackground);
@@ -9,6 +10,8 @@ document.getElementById('play-again-ok').addEventListener('click', restart);
 document.getElementById('info-ok').addEventListener('click', makeCloseEventFromThis);
 document.getElementById('restart-no').addEventListener('click', makeCloseEventFromThis);
 document.getElementById('restart-ok').addEventListener('click', restart);
+document.getElementById('back-no').addEventListener('click', makeCloseEventFromThis);
+document.getElementById('back-ok').addEventListener('click', back);
 
 (function initializeGame() {
     const fieldWidth = 7;
@@ -21,7 +24,18 @@ document.getElementById('restart-ok').addEventListener('click', restart);
     const firstCircle = document.getElementById("first_circle");
     const secondCircle = document.getElementById("second_circle");
 
-    setColors(getRandomColors());
+    (function getColorsFromLocalStorage() {
+        const localPlayerOne = localStorage.getItem('playerOneColor');
+        const localPlayerTwo = localStorage.getItem('playerTwoColor');
+
+        if (localPlayerOne && localPlayerTwo) {
+            setColors([localPlayerOne, localPlayerTwo]);
+        }
+        else {
+            setColors(getRandomColors());
+        }
+
+    })();
 
     (function addCells() {
         const field = document.getElementById("field");
@@ -102,8 +116,8 @@ document.getElementById('restart-ok').addEventListener('click', restart);
     }
 
     function endGame(htmlEndMessage) {
-        endModal = document.getElementById("end-modal");
-        mBody = endModal.querySelector(".modal-body");
+        const endModal = document.getElementById("end-modal");
+        const mBody = endModal.querySelector(".modal-body");
         mBody.innerHTML = htmlEndMessage;
         showModal(endModal);
     }
@@ -183,10 +197,15 @@ document.getElementById('restart-ok').addEventListener('click', restart);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+
 })();
 
 function restart() {
     location.reload();
+}
+
+function back() {
+    location.replace('index.html');
 }
 
 function showModalById(ID) {
